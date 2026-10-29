@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammed — Master Engineering Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:   #0c0c0e;
+  --bg2:  #141416;
+  --bg3:  #1a1a1d;
+  --bg4:  #212126;
+  --border:  rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.13);
+  --border3: rgba(255,255,255,0.20);
+  --text:    #dedad2;
+  --muted:   #6e6c64;
+  --muted2:  #9b9890;
+
+  --blue:    #5090e8;
+  --blue-bg: rgba(80,144,232,0.10);
+  --blue-b:  rgba(80,144,232,0.25);
+
+  --teal:    #2dbe9c;
+  --teal-bg: rgba(45,190,156,0.09);
+  --teal-b:  rgba(45,190,156,0.25);
+
+  --amber:   #e8a540;
+  --amber-bg:rgba(232,165,64,0.09);
+  --amber-b: rgba(232,165,64,0.25);
+
+  --coral:   #e86050;
+  --coral-bg:rgba(232,96,80,0.09);
+  --coral-b: rgba(232,96,80,0.25);
+
+  --purple:  #9b7fea;
+  --purp-bg: rgba(155,127,234,0.09);
+  --purp-b:  rgba(155,127,234,0.25);
+
+  --green:   #5fc26c;
+  --green-bg:rgba(95,194,108,0.09);
+  --green-b: rgba(95,194,108,0.25);
+
+  --pink:    #d46aa0;
+  --pink-bg: rgba(212,106,160,0.09);
+  --pink-b:  rgba(212,106,160,0.25);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  line-height:1.65;
+}
+
+/* ── Top bar ── */
+.topbar{
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  padding:1.6rem 2.5rem 0;
+  max-width:1180px;
+  margin:0 auto;
+}
+.topbar-meta{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:1rem;
+  margin-bottom:1.25rem;
+}
+.topbar h1{
+  font-family:'Syne',sans-serif;
+  font-size:1.35rem;
+  font-weight:700;
+  letter-spacing:-0.01em;
+  color:#e8e4da;
+}
+.topbar-sub{
+  font-size:0.8rem;
+  color:var(--muted2);
+  margin-top:0.25rem;
+}
+.pills{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.pill{
+  font-size:0.7rem;
+  font-weight:600;
+  padding:0.22rem 0.6rem;
+  border-radius:20px;
+  letter-spacing:0.03em;
+}
+.pill-blue  {background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-b);}
+.pill-teal  {background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-b);}
+.pill-amber {background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-b);}
+.pill-coral {background:var(--coral-bg);color:var(--coral);border:1px solid var(--coral-b);}
+.pill-purple{background:var(--purp-bg);color:var(--purple);border:1px solid var(--purp-b);}
+.pill-green {background:var(--green-bg);color:var(--green);border:1px solid var(--green-b);}
+.pill-pink  {background:var(--pink-bg);color:var(--pink);border:1px solid var(--pink-b);}
+
+/* ── Tabs ── */
+.tabs{
+  display:flex;
+  gap:0;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{
+  font-family:'DM Sans',sans-serif;
+  font-size:0.82rem;
+  font-weight:500;
+  padding:0.65rem 1.2rem;
+  background:none;
+  border:none;
+  color:var(--muted);
+  cursor:pointer;
+  border-bottom:2px solid transparent;
+  white-space:nowrap;
+  transition:color .15s,border-color .15s;
+  display:flex;
+  align-items:center;
+  gap:0.45rem;
+  letter-spacing:-0.01em;
+}
+.tab:hover{color:var(--text);}
+.tab.on{color:var(--text);border-bottom-color:var(--text);}
+.tab-num{
+  font-family:'DM Mono',monospace;
+  font-size:0.65rem;
+  opacity:.45;
+}
+
+/* ── Layout ── */
+.main{
+  max-width:1180px;
+  margin:0 auto;
+  padding:2rem 2.5rem;
+}
+.panel{display:none;}
+.panel.on{display:block;}
+
+/* ── Connection map (CE tab) ── */
+.conn-map{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:0.75rem;
+  margin-bottom:2rem;
+}
+.conn-card{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:0.9rem 1rem;
+  position:relative;
+}
+.conn-card::before{
+  content:attr(data-tag);
+  display:block;
+  font-family:'DM Mono',monospace;
+  font-size:0.62rem;
+  letter-spacing:0.06em;
+  margin-bottom:0.4rem;
+  opacity:.55;
+}
+.conn-name{
+  font-size:0.85rem;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:0.35rem;
+  line-height:1.3;
+}
+.conn-links{
+  font-size:0.74rem;
+  color:var(--muted2);
+  line-height:1.5;
+}
+.conn-links span{
+  display:inline-block;
+  padding:0.1rem 0.4rem;
+  border-radius:4px;
+  font-size:0.67rem;
+  font-weight:600;
+  margin-top:0.25rem;
+  margin-right:0.2rem;
+}
+
+/* ── Timeline ── */
+.tl{
+  display:grid;
+  grid-template-columns:188px 1fr;
+  gap:0;
+}
+
+.tl-label{
+  padding:1.6rem 1.4rem 1.6rem 0;
+  border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  position:relative;
+}
+.tl-label::after{
+  content:'';
+  position:absolute;
+  right:-5px;
+  top:2.1rem;
+  width:9px;height:9px;
+  border-radius:50%;
+  background:var(--bg3);
+  border:1.5px solid var(--border2);
+}
+.tl-label.hot::after{
+  background:var(--teal);
+  border-color:var(--teal);
+  box-shadow:0 0 10px rgba(45,190,156,.4);
+}
+.tl-num{
+  font-family:'DM Mono',monospace;
+  font-size:0.65rem;
+  color:var(--muted);
+  letter-spacing:.06em;
+  margin-bottom:.3rem;
+}
+.tl-title{
+  font-size:0.875rem;
+  font-weight:600;
+  color:var(--text);
+  line-height:1.3;
+  margin-bottom:.35rem;
+}
+.tl-time{font-size:.73rem;color:var(--muted);}
+
+.tl-body{
+  padding:1.6rem 0 1.6rem 1.6rem;
+  border-bottom:1px solid var(--border);
+}
+
+/* ── Always-on band ── */
+.always{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:.85rem 1.1rem;
+  margin-bottom:1.5rem;
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:.8rem;
+}
+.always-label{
+  font-size:.72rem;
+  font-weight:600;
+  color:var(--muted);
+  white-space:nowrap;
+  letter-spacing:.04em;
+}
+.always-items{display:flex;flex-wrap:wrap;gap:.4rem;flex:1;}
+
+/* ── Cards ── */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(255px,1fr));
+  gap:.85rem;
+}
+.card{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:.95rem 1.05rem;
+  transition:border-color .15s;
+}
+.card:hover{border-color:var(--border2);}
+
+.card-hd{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  margin-bottom:.7rem;
+}
+.dot{
+  width:8px;height:8px;
+  border-radius:50%;
+  flex-shrink:0;
+}
+.card-name{
+  font-size:.8rem;
+  font-weight:600;
+  color:var(--text);
+  flex:1;
+  letter-spacing:.005em;
+}
+.badge{
+  font-size:.66rem;
+  font-weight:600;
+  padding:.15rem .45rem;
+  border-radius:10px;
+  white-space:nowrap;
+}
+
+/* ── Resource list ── */
+.rl{list-style:none;}
+.rl li{
+  display:flex;
+  align-items:flex-start;
+  gap:.55rem;
+  padding:.4rem 0;
+  border-bottom:1px solid var(--border);
+  font-size:.8rem;
+}
+.rl li:last-child{border-bottom:none;padding-bottom:0;}
+.rl li:first-child{padding-top:0;}
+.pt{
+  font-size:.63rem;
+  font-weight:700;
+  padding:.14rem .38rem;
+  border-radius:4px;
+  white-space:nowrap;
+  flex-shrink:0;
+  margin-top:.12rem;
+  letter-spacing:.03em;
+}
+.pt-coursera  {background:rgba(0,86,210,.18);color:#70b0ff;border:1px solid rgba(0,86,210,.3);}
+.pt-udemy     {background:rgba(180,120,0,.18);color:#ffc560;border:1px solid rgba(180,120,0,.3);}
+.pt-yt        {background:rgba(200,30,30,.16);color:#ff8080;border:1px solid rgba(200,30,30,.28);}
+.pt-ps        {background:rgba(240,100,10,.14);color:#ff9d60;border:1px solid rgba(240,100,10,.25);}
+.pt-free      {background:rgba(45,190,156,.12);color:var(--teal);border:1px solid var(--teal-b);}
+.pt-book      {background:rgba(155,127,234,.12);color:var(--purple);border:1px solid var(--purp-b);}
+.pt-nvidia    {background:rgba(100,200,80,.12);color:var(--green);border:1px solid var(--green-b);}
+
+.rt{color:var(--muted2);line-height:1.4;flex:1;}
+.rt strong{color:var(--text);font-weight:500;display:block;}
+.rt a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .1s,color .1s;}
+.rt a:hover{color:var(--text);border-bottom-color:var(--border2);}
+
+/* ── Tags ── */
+.tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.65rem;}
+.tag{
+  font-size:.69rem;
+  padding:.17rem .5rem;
+  border-radius:20px;
+  background:var(--bg4);
+  color:var(--muted2);
+  border:1px solid var(--border);
+}
+
+/* ── Callout ── */
+.note{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-left:3px solid var(--amber);
+  border-radius:0 8px 8px 0;
+  padding:.7rem 1rem;
+  font-size:.8rem;
+  color:var(--muted2);
+  margin-bottom:.9rem;
+  line-height:1.5;
+}
+.note strong{color:var(--amber);font-weight:600;}
+.note.teal{border-left-color:var(--teal);}
+.note.teal strong{color:var(--teal);}
+.note.purple{border-left-color:var(--purple);}
+.note.purple strong{color:var(--purple);}
+.note.coral{border-left-color:var(--coral);}
+.note.coral strong{color:var(--coral);}
+
+/* ── Section header ── */
+.sh{
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:.75rem;
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+}
+.sh::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* ── Parallel tags ── */
+.par-row{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.8rem;}
+.par-tag{
+  font-size:.72rem;
+  font-weight:500;
+  padding:.22rem .6rem;
+  border-radius:6px;
+  background:var(--bg4);
+  border:1px solid var(--border2);
+  color:var(--muted2);
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+.par-dot{
+  width:6px;height:6px;
+  border-radius:50%;
+  flex-shrink:0;
+}
+
+/* ── Weekly split ── */
+.week-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+  gap:.7rem;
+  margin-top:.85rem;
+}
+.week-cell{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:.85rem 1rem;
+}
+.week-pct{
+  font-family:'DM Mono',monospace;
+  font-size:1.45rem;
+  font-weight:400;
+  line-height:1;
+  margin-bottom:.22rem;
+}
+.week-lbl{font-size:.76rem;color:var(--muted2);line-height:1.35;}
+
+/* ── Priority matrix (career panel) ── */
+.matrix{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.75rem;
+  margin-bottom:1.5rem;
+}
+.mx-cell{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:1rem 1.1rem;
+}
+.mx-cell h3{
+  font-size:.78rem;
+  font-weight:600;
+  margin-bottom:.5rem;
+  display:flex;
+  align-items:center;
+  gap:.4rem;
+}
+.mx-line{
+  font-size:.77rem;
+  color:var(--muted2);
+  padding:.22rem 0;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  line-height:1.35;
+}
+.mx-line:last-child{border-bottom:none;padding-bottom:0;}
+
+/* ── Career path ── */
+.path{
+  display:flex;
+  flex-wrap:wrap;
+  gap:0;
+  align-items:center;
+  margin-bottom:1.5rem;
+  padding:.5rem 0;
+}
+.path-node{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:.55rem .9rem;
+  font-size:.78rem;
+  font-weight:500;
+  color:var(--muted2);
+  white-space:nowrap;
+}
+.path-node.active-node{
+  background:var(--teal-bg);
+  border-color:var(--teal-b);
+  color:var(--teal);
+}
+.path-arrow{
+  font-size:1rem;
+  color:var(--muted);
+  padding:0 .5rem;
+}
+
+/* ── Colors ── */
+.c-blue{color:var(--blue);}
+.c-teal{color:var(--teal);}
+.c-amber{color:var(--amber);}
+.c-coral{color:var(--coral);}
+.c-purple{color:var(--purple);}
+.c-green{color:var(--green);}
+.c-pink{color:var(--pink);}
+
+.dot-blue  {background:var(--blue);}
+.dot-teal  {background:var(--teal);}
+.dot-amber {background:var(--amber);}
+.dot-coral {background:var(--coral);}
+.dot-purple{background:var(--purple);}
+.dot-green {background:var(--green);}
+.dot-pink  {background:var(--pink);}
+
+/* ── Responsive ── */
+@media(max-width:660px){
+  .main{padding:1.5rem 1rem;}
+  .topbar{padding:1.2rem 1rem 0;}
+  .tl{grid-template-columns:1fr;}
+  .tl-label{border-right:none;border-bottom:none;padding-bottom:0;}
+  .tl-label::after{display:none;}
+  .tl-body{padding-left:0;}
+  .matrix{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════ TOP BAR ════════════════ -->
+<div class="topbar">
+  <div class="topbar-meta">
+    <div>
+      <h1>Mohammed — Master Engineering Roadmap</h1>
+      <div class="topbar-sub">BSc Civil Engineering · MS CS · Java Dev → Senior Software + AI/ML Engineer · 2025–2028</div>
+    </div>
+    <div class="pills">
+      <span class="pill pill-coral">McDaniel MDA (AI Track)</span>
+      <span class="pill pill-blue">Java Backend</span>
+      <span class="pill pill-amber">AWS Target</span>
+      <span class="pill pill-purple">AI/ML Eng</span>
+      <span class="pill pill-teal">CE/EE Foundations</span>
+      <span class="pill pill-green">DSP · Control · GPU</span>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab on" onclick="sw('career')"><span class="tab-num">00</span> Overview</button>
+    <button class="tab" onclick="sw('ce')"><span class="tab-num">01</span> Science &amp; CE/EE</button>
+    <button class="tab" onclick="sw('cs')"><span class="tab-num">02</span> CS Foundations</button>
+    <button class="tab" onclick="sw('se')"><span class="tab-num">03</span> Software Engineering</button>
+    <button class="tab" onclick="sw('ai')"><span class="tab-num">04</span> AI / ML Engineering</button>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ════════════════ 00 · OVERVIEW ════════════════ -->
+<div class="panel on" id="p-career">
+
+  <div class="note teal">
+    <strong>How to use this roadmap:</strong> Tabs 01–04 are parallel tracks, not sequential steps. You run all of them simultaneously with different time allocations. Tab 01 (CE/EE) is background enrichment — 1–2 hours per week, not a sprint. Tabs 03 and 04 are your primary investment.
+  </div>
+
+  <div class="sh">Career trajectory</div>
+  <div class="path">
+    <div class="path-node active-node">You — now<br><span style="font-size:.7rem;opacity:.7">Java dev + civil eng bg</span></div>
+    <div class="path-arrow">→</div>
+    <div class="path-node">Mid Java<br>Backend Eng</div>
+    <div class="path-arrow">→</div>
+    <div class="path-node">Senior Software<br>Engineer</div>
+    <div class="path-arrow">→</div>
+    <div class="path-node">Software + Cloud<br>+ ML Engineer</div>
+    <div class="path-arrow">→</div>
+    <div class="path-node">AI/ML Systems<br>Engineer</div>
+    <div class="path-arrow">→</div>
+    <div class="path-node" style="background:var(--purp-bg);border-color:var(--purp-b);color:var(--purple);">Engineering AI<br>Specialist (niche)</div>
+  </div>
+
+  <div class="sh">What each track builds</div>
+  <div class="matrix">
+    <div class="mx-cell">
+      <h3><span style="color:var(--teal)">01</span> Science &amp; CE/EE</h3>
+      <div class="mx-line"><span class="pill pill-teal" style="font-size:.62rem">DSP</span>Directly powers ML on images, audio, time series</div>
+      <div class="mx-line"><span class="pill pill-teal" style="font-size:.62rem">Control</span>Reinforcement learning, robotics, digital twins</div>
+      <div class="mx-line"><span class="pill pill-teal" style="font-size:.62rem">Architecture</span>CPU/GPU intuition for performance engineering</div>
+      <div class="mx-line"><span class="pill pill-teal" style="font-size:.62rem">Numerical</span>Simulation, FEM, scientific computing (your niche)</div>
+      <div class="mx-line"><span class="pill pill-teal" style="font-size:.62rem">GPU</span>ML training, CUDA, parallel computing</div>
+    </div>
+    <div class="mx-cell">
+      <h3><span style="color:var(--blue)">02</span> CS Foundations</h3>
+      <div class="mx-line"><span class="pill pill-blue" style="font-size:.62rem">DSA</span>Interview survival + writing efficient systems</div>
+      <div class="mx-line"><span class="pill pill-blue" style="font-size:.62rem">OS</span>Processes, threads, memory — JVM/Python runtime sense</div>
+      <div class="mx-line"><span class="pill pill-blue" style="font-size:.62rem">Networks</span>Backend, cloud, distributed systems, proxies</div>
+      <div class="mx-line"><span class="pill pill-blue" style="font-size:.62rem">Compilers</span>Parser intuition, AST — helpful for DSL/tooling work</div>
+    </div>
+    <div class="mx-cell">
+      <h3><span style="color:var(--coral)">03</span> Software Engineering</h3>
+      <div class="mx-line"><span class="pill pill-coral" style="font-size:.62rem">Java/Spring</span>Immediate employability engine — do this first</div>
+      <div class="mx-line"><span class="pill pill-coral" style="font-size:.62rem">React</span>Full-stack story for Java roles</div>
+      <div class="mx-line"><span class="pill pill-coral" style="font-size:.62rem">Docker/K8s</span>Containerization — required for any senior role</div>
+      <div class="mx-line"><span class="pill pill-coral" style="font-size:.62rem">AWS SAA</span>Cloud credential that opens mid-to-senior doors</div>
+      <div class="mx-line"><span class="pill pill-coral" style="font-size:.62rem">System design</span>The gate between mid-level and senior interviews</div>
+    </div>
+    <div class="mx-cell">
+      <h3><span style="color:var(--purple)">04</span> AI / ML Engineering</h3>
+      <div class="mx-line"><span class="pill pill-purple" style="font-size:.62rem">Python</span>Engineering Python — waive ANA 522</div>
+      <div class="mx-line"><span class="pill pill-purple" style="font-size:.62rem">Classical ML</span>scikit-learn, pipelines, validation — ANA 540 companion</div>
+      <div class="mx-line"><span class="pill pill-purple" style="font-size:.62rem">MLOps</span>Deployment, monitoring, FastAPI — differentiator</div>
+      <div class="mx-line"><span class="pill pill-purple" style="font-size:.62rem">Deep Learning</span>CNNs, transformers, Keras — ANA 600 companion</div>
+      <div class="mx-line"><span class="pill pill-purple" style="font-size:.62rem">LLM/RAG</span>Production AI systems — Capstone level</div>
+    </div>
+  </div>
+
+  <div class="sh">Weekly time budget</div>
+  <div class="week-grid">
+    <div class="week-cell"><div class="week-pct c-coral">35–40%</div><div class="week-lbl">Job applications + LeetCode + interview prep</div></div>
+    <div class="week-cell"><div class="week-pct c-purple">20–25%</div><div class="week-lbl">McDaniel coursework</div></div>
+    <div class="week-cell"><div class="week-pct c-blue">15%</div><div class="week-lbl">Java/Spring depth + side project</div></div>
+    <div class="week-cell"><div class="week-pct c-amber">10%</div><div class="week-lbl">Cloud / DevOps track</div></div>
+    <div class="week-cell"><div class="week-pct c-green">8%</div><div class="week-lbl">AI/ML external courses (phase-aligned)</div></div>
+    <div class="week-cell"><div class="week-pct c-teal">5%</div><div class="week-lbl">CE/EE enrichment — slow background read</div></div>
+  </div>
+
+  <div class="sh" style="margin-top:1.5rem">Your structural advantage</div>
+  <div class="note purple">
+    <strong>The rare combination:</strong> Civil engineering + software + AI is genuinely uncommon. Most ML engineers cannot reason about physical systems. Most civil engineers cannot build software. You are building toward a position where you can do both — digital twins, structural simulation acceleration, engineering AI, FEM optimization. These domains have far less competition than generic "AI apps" and command significantly higher salaries.
+  </div>
+</div>
+
+
+<!-- ════════════════ 01 · SCIENCE & CE/EE ════════════════ -->
+<div class="panel" id="p-ce">
+
+  <div class="note teal">
+    <strong>Pacing guidance:</strong> This tab is background enrichment, not a sprint. Allocate 5–8% of weekly time (~3–5 hrs/week). Choose one track at a time. Priority order: Computer Architecture → Signal Processing → Control Theory → Numerical Methods → GPU Computing.
+  </div>
+
+  <div class="sh">How CE/EE connects to your goals</div>
+  <div class="conn-map">
+    <div class="conn-card" data-tag="CE/EE → ML">
+      <div class="conn-name">Signal Processing → ML</div>
+      <div class="conn-links">Convolution IS the CNN operation. Fourier transforms underpin audio ML, spectral analysis, and time-series models. Understanding DSP makes CNNs intuitive, not magical.</div>
+      <span class="pill pill-purple" style="font-size:.65rem">CNNs</span>
+      <span class="pill pill-teal" style="font-size:.65rem">Audio ML</span>
+      <span class="pill pill-green" style="font-size:.65rem">Time series</span>
+    </div>
+    <div class="conn-card" data-tag="CE/EE → AI">
+      <div class="conn-name">Control Theory → RL &amp; Robotics</div>
+      <div class="conn-links">Feedback loops, stability, PID controllers, state-space models — these are the mathematical cousins of reinforcement learning. Industrial AI and digital twins live here.</div>
+      <span class="pill pill-purple" style="font-size:.65rem">RL</span>
+      <span class="pill pill-amber" style="font-size:.65rem">Digital twins</span>
+      <span class="pill pill-coral" style="font-size:.65rem">Industrial AI</span>
+    </div>
+    <div class="conn-card" data-tag="CE/EE → SE">
+      <div class="conn-name">Computer Architecture → Performance</div>
+      <div class="conn-links">Cache hierarchy, branch prediction, memory bandwidth, instruction pipelines — knowing this turns you from a framework user into someone who can explain why code is slow.</div>
+      <span class="pill pill-blue" style="font-size:.65rem">JVM tuning</span>
+      <span class="pill pill-teal" style="font-size:.65rem">Python perf</span>
+      <span class="pill pill-green" style="font-size:.65rem">GPU intuition</span>
+    </div>
+    <div class="conn-card" data-tag="CE + Civil Eng → Niche">
+      <div class="conn-name">Numerical Methods → Your Niche</div>
+      <div class="conn-links">FEM acceleration, structural simulation, computational fluid dynamics, FEA on GPUs — these are your blue ocean. Almost no ML engineers can reason about these problems.</div>
+      <span class="pill pill-pink" style="font-size:.65rem">FEM/FEA</span>
+      <span class="pill pill-amber" style="font-size:.65rem">Simulation AI</span>
+      <span class="pill pill-green" style="font-size:.65rem">SciML</span>
+    </div>
+    <div class="conn-card" data-tag="CE/EE → ML Infra">
+      <div class="conn-name">GPU Architecture → ML Training</div>
+      <div class="conn-links">CUDA, tensor cores, memory bandwidth, parallelism — this is how neural networks actually run at speed. Increasingly valuable as inference cost becomes a product constraint.</div>
+      <span class="pill pill-coral" style="font-size:.65rem">CUDA</span>
+      <span class="pill pill-blue" style="font-size:.65rem">Inference opt</span>
+      <span class="pill pill-green" style="font-size:.65rem">LLM serving</span>
+    </div>
+    <div class="conn-card" data-tag="CE/EE → IoT/Edge">
+      <div class="conn-name">Embedded Systems → Edge AI</div>
+      <div class="conn-links">TinyML, model quantization, ONNX, Raspberry Pi — ML at the edge is a growing market. Your engineering background gives you the hardware intuition most ML engineers lack.</div>
+      <span class="pill pill-teal" style="font-size:.65rem">TinyML</span>
+      <span class="pill pill-amber" style="font-size:.65rem">ONNX</span>
+      <span class="pill pill-blue" style="font-size:.65rem">IoT</span>
+    </div>
+  </div>
+
+  <div class="tl">
+
+    <!-- TRACK A: Computer Architecture -->
+    <div class="tl-label hot">
+      <div class="tl-num">TRACK A</div>
+      <div class="tl-title">Computer Architecture</div>
+      <div class="tl-time">Priority 1 — Start here</div>
+    </div>
+    <div class="tl-body">
+      <div class="note">
+        <strong>Why first:</strong> Understanding how hardware actually works transforms how you think about code performance, JVM memory, Python's GIL, and eventually GPU parallelism. This is the missing layer beneath all your frameworks.
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-coral"></div><span class="card-name">Nand2Tetris — Build a Computer</span><span class="badge pill-coral">Start here</span></div>
+          <ul class="rl">
+            <li>
+              <span class="pt pt-coursera">Coursera</span>
+              <div class="rt"><strong><a href="https://www.coursera.org/learn/build-a-computer" target="_blank">Nand2Tetris Part I</a> — Hebrew University</strong>Build logic gates → ALU → CPU from scratch in a hardware simulator. The most effective way to develop genuine computer architecture intuition.</div>
+            </li>
+            <li>
+              <span class="pt pt-coursera">Coursera</span>
+              <div class="rt"><strong><a href="https://www.coursera.org/learn/nand2tetris2" target="_blank">Nand2Tetris Part II</a> — Hebrew University</strong>Assembler → virtual machine → compiler → OS. Completes the picture from transistors to running programs.</div>
+            </li>
+          </ul>
+          <div class="tags"><span class="tag">Boolean logic</span><span class="tag">ALU</span><span class="tag">Memory hierarchy</span><span class="tag">Assembly</span><span class="tag">CPU pipeline</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-blue"></div><span class="card-name">Computer Architecture — Princeton</span></div>
+          <ul class="rl">
+            <li>
+              <span class="pt pt-coursera">Coursera</span>
+              <div class="rt"><strong><a href="https://www.coursera.org/learn/comparch" target="_blank">Computer Architecture</a> — Princeton</strong>Pipelining, cache design, branch prediction, memory systems, SIMD, multiprocessing. More rigorous than Nand2Tetris — take after Part II.</div>
+            </li>
+            <li>
+              <span class="pt pt-yt">YouTube</span>
+              <div class="rt"><strong>CS61C — UC Berkeley (archived lectures)</strong>Best free university-level computer architecture course; covers RISC-V, caches, pipelines, and parallelism at depth.</div>
+            </li>
+          </ul>
+          <div class="tags"><span class="tag">Cache hierarchy</span><span class="tag">Branch prediction</span><span class="tag">SIMD</span><span class="tag">Multicore</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRACK B: Digital Signal Processing -->
+    <div class="tl-label">
+      <div class="tl-num">TRACK B</div>
+      <div class="tl-title">Digital Signal Processing</div>
+      <div class="tl-time">Priority 2 — Directly feeds ML</div>
+    </div>
+    <div class="tl-body">
+      <div class="note purple">
+        <strong>Why this matters for ML:</strong> A CNN's convolution operation is literally a 2D signal convolution. Fourier transforms explain how spectrograms work, why attention mechanisms have certain properties, and how positional encodings are designed. DSP is the physics beneath modern deep learning.
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-purple"></div><span class="card-name">Digital Signal Processing — EPFL</span><span class="badge pill-purple">Best DSP course</span></div>
+          <ul class="rl">
+            <li>
+              <span class="pt pt-coursera">Coursera</span>
+              <div class="rt"><strong><a href="https://www.coursera.org/learn/dsp" target="_blank">Digital Signal Processing</a> — EPFL (Vetterli)</strong>Rigorous, excellent. Covers sampling theory, Fourier transforms, filtering, z-transforms, spectral analysis. 8 weeks — do this at moderate pace alongside other work.</div>
+            </li>
+            <li>
+              <span class="pt pt-yt">YouTube</span>
+              <div class="rt"><strong><a href="https://www.youtube.com/playlist?list=PLblh5JKOoLUL6HLSjsIQO99oxXoMXfZkn" target="_blank">StatQuest — Fourier Transform series</a></strong>Josh Starmer's intuition-first explanation of Fourier analysis — watch before the EPFL course to build geometric intuition.</div>
+            </li>
+          </ul>
+          <div class="tags"><span class="tag">Fourier transform</span><span class="tag">Sampling theorem</span><span class="tag">Convolution</span><span class="tag">Filtering</span><span class="tag">Spectral analysis</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-teal"></div><span class="card-name">DSP Applied to ML / Audio</span></div>
+          <ul class="rl">
+            <li>
+              <span class="pt pt-coursera">Coursera</span>
+              <div class="rt"><strong><a href="https://www.coursera.org/learn/audio-signal-processing" target="_blank">Audio Signal Processing for Music Applications</a> — UPF Barcelona</strong>Spectrograms, MFCCs, STFTs — directly applicable to audio ML and understanding how transformers encode sequences.</div>
+            </li>
+            <li>
+              <span class="pt pt-yt">YouTube</span>
+              <div class="rt"><strong>Valerio Velardo — "The Sound of AI" YouTube channel</strong>DSP for ML practitioners: FFT, mel spectrograms, librosa — practical Python applications.</div>
+            </li>
+          </ul>
+          <div class="tags"><span class="tag">MFCC</span><span class="tag">Spectrogram</span><span class="tag">librosa</span><span class="tag">Audio ML</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRACK C: Control Theory -->
+    <div class="tl-label">
+      <div class="tl-num">TRACK C</div>
+      <div class="tl-title">Control Systems &amp; Robotics</div>
+      <div class="tl-time">Priority 3 — Your engineering niche</div>
+    </div>
+    <div class="tl-body">
+      <div class="note">
+        <strong>The civil engineering connection:</strong> Structural dynamics, vibration control, and feedback systems in buildings are literally control theory. Combined with your software skills, this becomes the foundation for digital twins, structural health monitoring, and engineering simulation AI.
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-amber"></div><span class="card-name">Control of Mobile Robots</span><span class="badge pill-amber">Intuitive entry</span></div>
+          <ul class="rl">
+            <li>
+              <span class="pt pt-coursera">Coursera</span>
+              <div class="rt"><strong><a href="https://www.coursera.org/learn/mobile-robot" target="_blank">Control of Mobile Robots</a> — Georgia Tech</strong>PID controllers, feedback loops, stability — taught through robotics applications. Very accessible entry to control theory; connects directly to RL concepts.</div>
+            </li>
+            <li>
+              <span class="pt pt-yt">YouTube</span>
+              <div class="rt"><strong><a href="https://www.youtube.com/@BrianBDouglas" target="_blank">Brian Douglas — Control Theory channel</a></strong>The best visual explanations of Laplace transforms, Bode plots, root locus, PID tuning — essential complement to any textbook.</div>
+            </li>
+          </ul>
+          <div class="tags"><span class="tag">PID control</span><span class="tag">Feedback loops</span><span class="tag">Stability</span><span class="tag">State space</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-green"></div><span class="card-name">Modern Robotics</span></div>
+          <ul class="rl">
+            <li>
+              <span class="pt pt-coursera">Coursera</span>
+              <div class="rt"><strong><a href="https://www.coursera.org/specializations/modernrobotics" target="_blank">Modern Robotics Specialization</a> — Northwestern</strong>6 courses covering robot mechanics, motion planning, trajectory control. More advanced — take after Control of Mobile Robots. Directly relevant to industrial AI and autonomous systems.</div>
+            </li>
+          </ul>
+          <div class="tags"><span class="tag">Kinematics</span><span class="tag">Motion planning</span><span class="tag">Trajectory control</span><span class="tag">Industrial AI</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRACK D: Numerical Methods -->
+    <div class="tl-label">
+      <div class="tl-num">TRACK D</div>
+      <div class="tl-title">Numerical Methods &amp; Scientific Computing</div>
+      <div class="tl-time">Priority 4 — Your blue ocean</div>
+    </div>
+    <div class="tl-body">
+      <div class="note teal">
+        <strong>Your unique edge:</strong> You already intuitively understand FEM and structural analysis from civil engineering. Adding scientific Python and numerical computing turns this into a rare combination — building ML systems that accelerate engineering simulation. Very few people can do this.
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-teal"></div><span class="card-name">Numerical Methods for Engineers</span></div>
+          <ul class="rl">
+            <li>
+              <span class="pt pt-coursera">Coursera</span>
+              <div class="rt"><strong><a href="https://www.coursera.org/learn/numerical-methods-engineers" target="_blank">Numerical Methods for Engineers</a> — McGill</strong>Root finding, numerical integration, ODE solvers, linear systems, interpolation. The computational tools that underlie both FEM and ML optimization.</div>
+            </li>
+            <li>
+              <span class="pt pt-yt">YouTube</span>
+              <div class="rt"><strong>MIT 18.085 — Mathematical Methods for Engineers (OCW)</strong>Gilbert Strang — linear algebra, Fourier series, PDEs, FEM. Free, exceptional. This is the mathematical backbone of scientific computing.</div>
+            </li>
+          </ul>
+          <div class="tags"><span class="tag">ODE solvers</span><span class="tag">Root finding</span><span class="tag">Numerical integration</span><span class="tag">Linear systems</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-pink"></div><span class="card-name">Scientific Python Stack</span></div>
+          <ul class="rl">
+            <li>
+              <span class="pt pt-free">Free</span>
+              <div class="rt"><strong><a href="https://scipy-lectures.org" target="_blank">Scientific Python Lectures</a></strong>NumPy, SciPy, sparse matrices, signal processing in Python — the tools to implement everything from Tracks B, C, D in code.</div>
+            </li>
+            <li>
+              <span class="pt pt-coursera">Coursera</span>
+              <div class="rt"><strong><a href="https://www.coursera.org/learn/python-for-applied-data-science-ai" target="_blank">Python for Data Science and AI</a> — IBM (supplement)</strong>SciPy, NumPy scientific computing — good refresher for the computational tools you'll use in simulation work.</div>
+            </li>
+          </ul>
+          <div class="tags"><span class="tag">SciPy</span><span class="tag">Sparse matrices</span><span class="tag">FEniCS</span><span class="tag">JAX (later)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRACK E: GPU / Parallel Computing -->
+    <div class="tl-label">
+      <div class="tl-num">TRACK E</div>
+      <div class="tl-title">GPU Architecture &amp; Parallel Computing</div>
+      <div class="tl-time">Priority 5 — Phase 3+ only</div>
+    </div>
+    <div class="tl-body">
+      <div class="note">
+        <strong>Timing:</strong> Do not start this until you have solid Python, NumPy fluency, and have begun the Deep Learning track. GPU programming makes no sense without that foundation. Target: concurrent with ANA 600 or after.
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-green"></div><span class="card-name">CUDA &amp; GPU Computing</span><span class="badge pill-green">Phase 3+</span></div>
+          <ul class="rl">
+            <li>
+              <span class="pt pt-nvidia">NVIDIA</span>
+              <div class="rt"><strong><a href="https://courses.nvidia.com/courses/course-v1:DLI+S-AC-04+V1/" target="_blank">Fundamentals of Accelerated Computing with CUDA Python</a> — NVIDIA DLI</strong>CUDA memory model, thread hierarchies, parallel patterns — in Python (Numba). Best entry to GPU programming without C++ barrier.</div>
+            </li>
+            <li>
+              <span class="pt pt-yt">YouTube</span>
+              <div class="rt"><strong>Andrej Karpathy — GPU programming intuition (X/Twitter threads)</strong>His explanations of GPU memory bandwidth vs compute constraints are invaluable for understanding why LLM inference is bottlenecked the way it is.</div>
+            </li>
+          </ul>
+          <div class="tags"><span class="tag">CUDA kernels</span><span class="tag">Memory coalescing</span><span class="tag">Thread hierarchy</span><span class="tag">Tensor cores</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-blue"></div><span class="card-name">Heterogeneous Computing &amp; Edge AI</span></div>
+          <ul class="rl">
+            <li>
+              <span class="pt pt-coursera">Coursera</span>
+              <div class="rt"><strong><a href="https://www.coursera.org/specializations/applied-data-science" target="_blank">TensorFlow: Data and Deployment Specialization</a> — DeepLearning.AI</strong>TF Lite, model quantization, deployment to edge devices — connects GPU/embedded knowledge to deployed AI systems.</div>
+            </li>
+            <li>
+              <span class="pt pt-free">Free</span>
+              <div class="rt"><strong><a href="https://mlcommons.org/en/groups/research-tiny/" target="_blank">TinyML / Edge AI community resources</a></strong>ONNX Runtime, model pruning, INT8 quantization — how to run ML on resource-constrained hardware.</div>
+            </li>
+          </ul>
+          <div class="tags"><span class="tag">TF Lite</span><span class="tag">ONNX</span><span class="tag">Quantization</span><span class="tag">Pruning</span><span class="tag">Edge inference</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRACK F: Embedded + IoT -->
+    <div class="tl-label">
+      <div class="tl-num">TRACK F</div>
+      <div class="tl-title">Embedded Systems &amp; IoT</div>
+      <div class="tl-time">Optional — after Track A–C</div>
+    </div>
+    <div class="tl-body">
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-amber"></div><span class="card-name">Embedded Systems Software</span></div>
+          <ul class="rl">
+            <li>
+              <span class="pt pt-coursera">Coursera</span>
+              <div class="rt"><strong><a href="https://www.coursera.org/learn/introduction-embedded-systems" target="_blank">Introduction to Embedded Systems</a> — UC Boulder</strong>Microcontrollers, memory-mapped I/O, interrupts, real-time constraints — relevant for IoT sensor integration and edge AI deployment.</div>
+            </li>
+            <li>
+              <span class="pt pt-coursera">Coursera</span>
+              <div class="rt"><strong><a href="https://www.coursera.org/specializations/iot" target="_blank">IoT Specialization</a> — UC Irvine</strong>Sensors, protocols (MQTT, BLE), embedded Linux, Raspberry Pi — practical IoT + AI pipeline building.</div>
+            </li>
+          </ul>
+          <div class="tags"><span class="tag">Microcontrollers</span><span class="tag">MQTT</span><span class="tag">Raspberry Pi</span><span class="tag">Sensor fusion</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end tl -->
+</div><!-- end p-ce -->
+
+
+<!-- ════════════════ 02 · CS FOUNDATIONS ════════════════ -->
+<div class="panel" id="p-cs">
+
+  <div class="note teal">
+    <strong>Run all three continuously</strong> — DSA at low background intensity the entire time; OS and Networks in focused bursts of 4–6 weeks each. These are what separate senior engineers from framework users.
+  </div>
+
+  <div class="always">
+    <span class="always-label">CONTINUOUS →</span>
+    <div class="always-items">
+      <span class="pill pill-blue">Princeton Algorithms I &amp; II (Coursera) — 3–4 problems/week</span>
+      <span class="pill pill-teal">LeetCode — easy/medium daily, hard weekly</span>
+    </div>
+  </div>
+
+  <div class="tl">
+
+    <div class="tl-label hot">
+      <div class="tl-num">DSA</div>
+      <div class="tl-title">Data Structures &amp; Algorithms</div>
+      <div class="tl-time">Continuous — from day one</div>
+    </div>
+    <div class="tl-body">
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-coral"></div><span class="card-name">Princeton Algorithms</span><span class="badge pill-coral">Primary</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/learn/algorithms-part1" target="_blank">Algorithms, Part I</a> — Princeton (Sedgewick)</strong>Arrays, sorting, trees, hash maps, symbol tables, graphs — taught with implementation depth. Best algorithmics course available online.</div></li>
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/learn/algorithms-part2" target="_blank">Algorithms, Part II</a> — Princeton</strong>Graphs, string processing, dynamic programming, NP-completeness — complete the specialization for interview preparedness.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">Sorting</span><span class="tag">Trees &amp; graphs</span><span class="tag">Hash maps</span><span class="tag">Dynamic programming</span><span class="tag">Time complexity</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-blue"></div><span class="card-name">Interview Practice</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-free">Free</span><div class="rt"><strong><a href="https://leetcode.com" target="_blank">LeetCode</a></strong>Focus: arrays, strings, trees, DP, graphs. Target 150 problems across 6 months. Don't grind randomly — solve by topic cluster.</div></li>
+            <li><span class="pt pt-book">Book</span><div class="rt"><strong>Cracking the Coding Interview</strong> — Gayle McDowell. The standard reference for behavioral + technical interview preparation; Java examples throughout.</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-label">
+      <div class="tl-num">OS</div>
+      <div class="tl-title">Operating Systems</div>
+      <div class="tl-time">Month 2–5</div>
+    </div>
+    <div class="tl-body">
+      <div class="note">
+        <strong>Why this changes everything:</strong> Understanding processes, threads, virtual memory, and context switching transforms how you reason about JVM garbage collection, Python's GIL, async I/O, and container isolation.
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-purple"></div><span class="card-name">OSTEP — Three Easy Pieces</span><span class="badge pill-purple">Best OS text</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-free">Free</span><div class="rt"><strong><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank">Operating Systems: Three Easy Pieces</a> (Arpaci-Dusseau)</strong>Processes, scheduling, virtual memory, file systems, concurrency. Free, outstanding writing. Read 2–3 chapters per week alongside Princeton Algorithms.</div></li>
+            <li><span class="pt pt-yt">YouTube</span><div class="rt"><strong>Hussein Nasser — "How Processes, Threads, and Coroutines work"</strong>Practical backend-engineer perspective on OS concepts — ties OS theory directly to Java/Python runtime behavior.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">Processes</span><span class="tag">Threads</span><span class="tag">Virtual memory</span><span class="tag">Scheduling</span><span class="tag">Concurrency</span><span class="tag">File systems</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-teal"></div><span class="card-name">Concurrency in Practice</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-book">Book</span><div class="rt"><strong>Java Concurrency in Practice</strong> — Goetz et al. The definitive Java concurrency reference. Covers synchronized blocks, locks, thread pools, atomic operations — essential for senior Java roles.</div></li>
+            <li><span class="pt pt-ps">Pluralsight</span><div class="rt"><strong>Java Concurrency &amp; Multithreading</strong>Practical thread safety, ExecutorService, CompletableFuture — directly applicable to Spring Boot async operations.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">Thread safety</span><span class="tag">Locks</span><span class="tag">CompletableFuture</span><span class="tag">ExecutorService</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-label">
+      <div class="tl-num">NETWORKS</div>
+      <div class="tl-title">Networking</div>
+      <div class="tl-time">Month 3–6</div>
+    </div>
+    <div class="tl-body">
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-amber"></div><span class="card-name">Top-Down Approach</span><span class="badge pill-amber">Primary</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-free">Free</span><div class="rt"><strong><a href="https://gaia.cs.umass.edu/kurose_ross/online_lectures.htm" target="_blank">Kurose &amp; Ross — Computer Networking: A Top-Down Approach</a></strong>HTTP, DNS, TCP/IP, routing, TLS, congestion control. The standard university text — free lecture slides + videos available.</div></li>
+            <li><span class="pt pt-yt">YouTube</span><div class="rt"><strong>Hussein Nasser — Backend Engineering YouTube channel</strong>Proxies, gateways, load balancers, TCP explained from a backend engineer's perspective — extremely practical for Java/cloud work.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">TCP/IP</span><span class="tag">HTTP/2 &amp; HTTP/3</span><span class="tag">DNS</span><span class="tag">TLS</span><span class="tag">Load balancers</span><span class="tag">Reverse proxies</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-green"></div><span class="card-name">Practical Network Engineering</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/learn/computer-networking" target="_blank">The Bits and Bytes of Computer Networking</a> — Google/Coursera</strong>More accessible introduction — good if Kurose &amp; Ross feels too academic at first. Covers subnetting, routing, VPNs.</div></li>
+            <li><span class="pt pt-free">Free</span><div class="rt"><strong>Cloudflare Learning Center</strong>DNS, CDN, DDoS, TLS, HTTP explained with excellent visual diagrams — use as reference alongside the course.</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-label">
+      <div class="tl-num">COMPILERS</div>
+      <div class="tl-title">Compilers &amp; PLT Basics</div>
+      <div class="tl-time">Month 8+ — Optional enrichment</div>
+    </div>
+    <div class="tl-body">
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-pink"></div><span class="card-name">Compilers (Stanford)</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/learn/compilers" target="_blank">Compilers</a> — Stanford (Alex Aiken)</strong>Lexing, parsing, semantic analysis, code generation. Understanding compilers helps with JVM bytecode, Python AST manipulation, DSL design, and debugging performance issues.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">Lexers</span><span class="tag">Parsers</span><span class="tag">AST</span><span class="tag">Code generation</span><span class="tag">JVM bytecode</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-blue"></div><span class="card-name">Information Theory Basics</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-yt">YouTube</span><div class="rt"><strong><a href="https://www.youtube.com/watch?v=2s3aJfRr9gE" target="_blank">David MacKay — Information Theory lectures (Cambridge)</a></strong>Entropy, mutual information, channel capacity, KL divergence — directly relevant to ML loss functions, VAEs, and compression.</div></li>
+            <li><span class="pt pt-yt">YouTube</span><div class="rt"><strong>3Blue1Brown — "But what is entropy?" series</strong>Visual intuition for entropy and information — watch before anything more formal.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">Entropy</span><span class="tag">KL divergence</span><span class="tag">Cross-entropy loss</span><span class="tag">Mutual information</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- end p-cs -->
+
+
+<!-- ════════════════ 03 · SOFTWARE ENGINEERING ════════════════ -->
+<div class="panel" id="p-se">
+
+  <div class="note coral">
+    <strong>Economic engine:</strong> This track funds everything else. Do not pause applications while studying AI. You are already employable as a Java backend engineer. Every week without an active application pipeline is a lost opportunity.
+  </div>
+
+  <div class="always">
+    <span class="always-label">CONTINUOUS →</span>
+    <div class="always-items">
+      <span class="pill pill-blue">DSA — Princeton Algorithms I &amp; II</span>
+      <span class="pill pill-teal">LeetCode — 3–5 problems/week, by topic cluster</span>
+      <span class="pill pill-coral">Applications — send at minimum 5/week</span>
+    </div>
+  </div>
+
+  <div class="tl">
+
+    <div class="tl-label hot">
+      <div class="tl-num">PHASE 0</div>
+      <div class="tl-title">Immediate Job-Ready Polish</div>
+      <div class="tl-time">Now → Month 2</div>
+    </div>
+    <div class="tl-body">
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-coral"></div><span class="card-name">Spring Boot — Full Depth</span><span class="badge pill-coral">Highest priority</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-udemy">Udemy</span><div class="rt"><strong><a href="https://www.udemy.com/course/spring-hibernate-tutorial/" target="_blank">Spring &amp; Hibernate for Beginners</a> — Chad Darby</strong>Spring Boot, MVC, REST, Security, JPA, Hibernate. Most comprehensive Spring course; your Java background lets you move fast.</div></li>
+            <li><span class="pt pt-free">Free</span><div class="rt"><strong><a href="https://www.baeldung.com" target="_blank">Baeldung</a></strong>Use as daily reference; covers every Spring topic at depth. Read the Spring Security and Spring Data JPA series in full.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">Spring MVC</span><span class="tag">Spring Data JPA</span><span class="tag">Spring Security</span><span class="tag">JWT/OAuth2</span><span class="tag">Transactions</span><span class="tag">Exception handling</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-blue"></div><span class="card-name">PostgreSQL &amp; SQL Mastery</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-free">Free</span><div class="rt"><strong><a href="https://use-the-index-luke.com" target="_blank">Use The Index, Luke!</a></strong>Best resource on indexing and query performance — not just syntax. Teaches you to read EXPLAIN plans and understand query optimizer behavior.</div></li>
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/specializations/learn-sql-basics-data-science" target="_blank">Learn SQL Basics for Data Science</a> — UC Davis</strong>Window functions, CTEs, aggregations — covers what most SQL courses miss.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">Indexing</span><span class="tag">Query optimization</span><span class="tag">Window functions</span><span class="tag">Transactions</span><span class="tag">Isolation levels</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-label">
+      <div class="tl-num">PHASE 1</div>
+      <div class="tl-title">Full-Stack &amp; REST Engineering</div>
+      <div class="tl-time">Month 1–4</div>
+    </div>
+    <div class="tl-body">
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-amber"></div><span class="card-name">React + TypeScript</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/professional-certificates/meta-front-end-developer" target="_blank">Meta Front-End Developer Certificate</a></strong>HTML/CSS → JavaScript → React. Skip early modules given your background. Good LinkedIn credential.</div></li>
+            <li><span class="pt pt-udemy">Udemy</span><div class="rt"><strong><a href="https://www.udemy.com/course/react-the-complete-guide-incl-redux/" target="_blank">React — The Complete Guide</a> (Schwarzmüller)</strong>Hooks, context, React Query, Redux — more thorough than Meta cert for production React work.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">React Hooks</span><span class="tag">TypeScript</span><span class="tag">REST integration</span><span class="tag">React Query</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-purple"></div><span class="card-name">REST API Design &amp; Security</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-ps">Pluralsight</span><div class="rt"><strong>Designing RESTful Web APIs</strong>Versioning, HATEOAS, OpenAPI/Swagger, idempotency — REST design beyond CRUD.</div></li>
+            <li><span class="pt pt-free">Free</span><div class="rt"><strong><a href="https://owasp.org/www-project-top-ten/" target="_blank">OWASP Top 10</a></strong>Know every item — SQL injection, XSS, broken auth, SSRF, IDOR. Essential for any backend engineer; tested in interviews.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">OpenAPI</span><span class="tag">OWASP Top 10</span><span class="tag">Rate limiting</span><span class="tag">API versioning</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-label">
+      <div class="tl-num">PHASE 2</div>
+      <div class="tl-title">Linux, Docker &amp; DevOps</div>
+      <div class="tl-time">Month 3–7</div>
+    </div>
+    <div class="tl-body">
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-teal"></div><span class="card-name">Linux &amp; Shell Scripting</span><span class="badge pill-teal">Foundation</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/learn/linux-and-bash-for-data-engineering" target="_blank">Linux and Bash for Data Engineering</a> — Duke</strong>Shell scripting, processes, file systems, permissions — practical engineering Linux.</div></li>
+            <li><span class="pt pt-free">Free</span><div class="rt"><strong><a href="https://linuxcommand.org/tlcl.php" target="_blank">The Linux Command Line</a> (Shotts)</strong>Free book — comprehensive reference; the single best text for learning Linux as a developer.</div></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-blue"></div><span class="card-name">Docker &amp; Containers</span><span class="badge pill-blue">Required</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-udemy">Udemy</span><div class="rt"><strong><a href="https://www.udemy.com/course/docker-mastery/" target="_blank">Docker Mastery</a> — Bret Fisher</strong>Networking, volumes, Compose, multi-stage builds — best hands-on Docker course.</div></li>
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/learn/ibm-containers-docker-kubernetes-openshift" target="_blank">Containers, Kubernetes &amp; OpenShift</a> — IBM</strong>K8s deployments, services, ingress, Helm — extends Docker into orchestration.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">Dockerfile</span><span class="tag">Docker Compose</span><span class="tag">Kubernetes basics</span><span class="tag">GitHub Actions</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-amber"></div><span class="card-name">CI/CD &amp; DevOps</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/learn/devops-fundamentals" target="_blank">Introduction to DevOps</a> — IBM</strong>CI/CD pipeline concepts, GitHub Actions, IaC basics — good Coursera credential.</div></li>
+            <li><span class="pt pt-free">Free</span><div class="rt"><strong><a href="https://docs.github.com/en/actions" target="_blank">GitHub Actions documentation</a></strong>Build your own pipeline for a Spring Boot app — deploy to Docker Hub, run tests, push to AWS ECR.</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-label">
+      <div class="tl-num">PHASE 3</div>
+      <div class="tl-title">AWS Certification Path</div>
+      <div class="tl-time">Month 6–10</div>
+    </div>
+    <div class="tl-body">
+      <div class="note"><strong>Order:</strong> Cloud Practitioner (1–2 weeks) → Solutions Architect Associate (6–8 weeks). Do not skip Practitioner — it builds the mental model SAA assumes.</div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-amber"></div><span class="card-name">AWS Cloud Practitioner</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/learn/aws-cloud-practitioner-essentials" target="_blank">AWS Cloud Practitioner Essentials</a> — AWS Training</strong>Official course; 1–2 weeks; good LinkedIn badge. Do this first.</div></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-coral"></div><span class="card-name">AWS Solutions Architect Associate</span><span class="badge pill-coral">Priority cert</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-udemy">Udemy</span><div class="rt"><strong><a href="https://www.udemy.com/course/aws-certified-solutions-architect-associate-saa-c03/" target="_blank">SAA-C03 — Stéphane Maarek</a></strong>Industry standard prep; EC2, VPC, RDS, S3, IAM, Lambda, ECS, load balancers — in depth.</div></li>
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/specializations/aws-fundamentals" target="_blank">AWS Fundamentals Specialization</a></strong>4-course series from AWS; good academic complement to Maarek's exam prep.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">EC2 / VPC</span><span class="tag">S3 / RDS</span><span class="tag">IAM</span><span class="tag">Lambda / ECS</span><span class="tag">Load balancers</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-label">
+      <div class="tl-num">PHASE 4</div>
+      <div class="tl-title">System Design &amp; Distributed Systems</div>
+      <div class="tl-time">Month 8–14</div>
+    </div>
+    <div class="tl-body">
+      <div class="note"><strong>Senior engineer gate:</strong> System design interviews are the primary barrier between mid-level and senior. Start early; reason about trade-offs constantly.</div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-blue"></div><span class="card-name">System Design</span><span class="badge pill-blue">Senior gate</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-book">Book</span><div class="rt"><strong>Designing Data-Intensive Applications</strong> — Martin Kleppmann. The definitive distributed systems book. Replication, partitioning, consistency, consensus — read one chapter per week for 6 months.</div></li>
+            <li><span class="pt pt-free">Free</span><div class="rt"><strong><a href="https://github.com/donnemartin/system-design-primer" target="_blank">System Design Primer</a> (GitHub)</strong>CAP theorem, caching, load balancing, databases, microservices — free structured reference.</div></li>
+            <li><span class="pt pt-udemy">Udemy</span><div class="rt"><strong>Mastering the System Design Interview — Frank Kane</strong>URL shortener, rate limiter, chat system, notification service — practice building systems end-to-end verbally.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">Caching</span><span class="tag">Message queues</span><span class="tag">Consistency</span><span class="tag">Rate limiting</span><span class="tag">Idempotency</span><span class="tag">Partitioning</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-teal"></div><span class="card-name">Microservices + Kafka</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-udemy">Udemy</span><div class="rt"><strong><a href="https://www.udemy.com/course/microservices-with-spring-boot-and-spring-cloud/" target="_blank">Microservices — Spring Boot &amp; Spring Cloud</a></strong>Service discovery, API gateway, circuit breakers, Zipkin tracing — the Spring ecosystem for distributed systems.</div></li>
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong>Apache Kafka — Confluent (Coursera)</strong>Producers, consumers, topics, partitions, streams — essential for event-driven microservices.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">API gateway</span><span class="tag">Circuit breakers</span><span class="tag">Kafka</span><span class="tag">Distributed tracing</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- end p-se -->
+
+
+<!-- ════════════════ 04 · AI / ML ENGINEERING ════════════════ -->
+<div class="panel" id="p-ai">
+
+  <div class="note purple">
+    <strong>Synchronization principle:</strong> Every phase here is mapped to a specific McDaniel course. Study external material <em>before or alongside</em> the McDaniel course so classroom content reinforces what you already understand, rather than being the first time you encounter it.
+  </div>
+
+  <div class="always">
+    <span class="always-label">CONTINUOUS →</span>
+    <div class="always-items">
+      <span class="pill pill-purple">StatQuest (YouTube) — stats &amp; ML intuition daily</span>
+      <span class="pill pill-blue">3Blue1Brown — Essence of Linear Algebra + Neural Networks</span>
+      <span class="pill pill-green">Build 1 deployed project per phase</span>
+    </div>
+  </div>
+
+  <div class="tl">
+
+    <div class="tl-label hot">
+      <div class="tl-num">PHASE 0</div>
+      <div class="tl-title">Python for Engineers</div>
+      <div class="tl-time">Before Semester 1</div>
+    </div>
+    <div class="tl-body">
+      <div class="note teal"><strong>Goal:</strong> Self-study Python to waive ANA 522 and replace it with an advanced elective. Build a portfolio project as evidence — not just a certificate. Given your Java background, aim to complete Phase 0 in 4–6 weeks of focused effort.</div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-coral"></div><span class="card-name">Python 3 Deep Dive</span><span class="badge pill-coral">Primary — no substitutes</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-udemy">Udemy</span><div class="rt"><strong><a href="https://www.udemy.com/course/python-3-deep-dive-part-1/" target="_blank">Python 3 Deep Dive Parts 1–4</a> — Fred Baptiste</strong>Closures, decorators, generators, typing, OOP, metaprogramming — engineering Python, not tutorial Python. Exactly right for your background. This is what will convince a program director.</div></li>
+            <li><span class="pt pt-free">Free</span><div class="rt"><strong><a href="https://realpython.com" target="_blank">Real Python</a></strong>Reference for packaging, testing, async, Pandas — read relevant articles alongside the Udemy course.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">Generators</span><span class="tag">Decorators</span><span class="tag">Type hints</span><span class="tag">OOP patterns</span><span class="tag">Virtual envs</span><span class="tag">async/await</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-teal"></div><span class="card-name">Waiver Evidence Project</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-free">Build</span><div class="rt"><strong>Python CLI data pipeline</strong>Reads CSV/JSON → cleans/validates → statistical summary → outputs structured report. Pure engineering Python: typed functions, unit tests, logging, argparse. This demonstrates you write production Python, not notebook Python.</div></li>
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/specializations/python-3-programming" target="_blank">Python 3 Programming Specialization</a> — U Michigan</strong>Optional supplement — good for the LinkedIn certificate to show alongside your project.</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-label">
+      <div class="tl-num">PHASE 1</div>
+      <div class="tl-title">Math + Statistics Foundations</div>
+      <div class="tl-time">Concurrent: ANA 500, ANA 510</div>
+    </div>
+    <div class="tl-body">
+      <div class="par-row">
+        <span class="par-tag"><span class="par-dot" style="background:var(--blue)"></span>ANA 500 — Foundations of Data Analytics</span>
+        <span class="par-tag"><span class="par-dot" style="background:var(--amber)"></span>ANA 510 — Statistical Methods</span>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-purple"></div><span class="card-name">Linear Algebra</span><span class="badge pill-purple">ML language</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-yt">YouTube</span><div class="rt"><strong><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab" target="_blank">Essence of Linear Algebra</a> — 3Blue1Brown</strong>16 videos; geometric intuition for vectors, matrices, eigenvectors, determinants. Watch this before any formal course — it changes how you see the math.</div></li>
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/specializations/mathematics-machine-learning" target="_blank">Mathematics for Machine Learning</a> — Imperial College London</strong>Linear algebra + multivariate calculus + PCA — rigorous but applied. Essential theoretical grounding for everything in ANA 540 onward.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">Matrix multiplication</span><span class="tag">Eigenvalues</span><span class="tag">SVD</span><span class="tag">PCA</span><span class="tag">Gradients</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-amber"></div><span class="card-name">Probability &amp; Statistics</span><span class="badge pill-amber">ANA 510 companion</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-yt">YouTube</span><div class="rt"><strong><a href="https://www.youtube.com/@statquest" target="_blank">StatQuest — Josh Starmer</a></strong>Probability, distributions, hypothesis testing, Bayes theorem, regression — watch the relevant series before each ANA 510 topic arrives.</div></li>
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/specializations/statistics-with-python" target="_blank">Statistics with Python Specialization</a> — U Michigan</strong>Inference, confidence intervals, Bayesian statistics, A/B testing — directly aligns with ANA 510.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">Bayes theorem</span><span class="tag">Distributions</span><span class="tag">Hypothesis testing</span><span class="tag">Regression</span><span class="tag">MLE</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-teal"></div><span class="card-name">SQL &amp; Data Engineering</span><span class="badge pill-teal">ANA 505/515</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-free">Free</span><div class="rt"><strong><a href="https://sqlbolt.com" target="_blank">SQLBolt</a></strong>Interactive SQL — covers joins, aggregations, window functions. Use as a fast refresher before ANA 505 starts.</div></li>
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/specializations/learn-sql-basics-data-science" target="_blank">Learn SQL for Data Science</a> — UC Davis</strong>SQL → data analysis → A/B testing; covers SAS alternatives and covers what ANA 505 builds on.</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-label">
+      <div class="tl-num">PHASE 2</div>
+      <div class="tl-title">Classical Machine Learning</div>
+      <div class="tl-time">Concurrent: ANA 540</div>
+    </div>
+    <div class="tl-body">
+      <div class="par-row">
+        <span class="par-tag"><span class="par-dot" style="background:var(--coral)"></span>ANA 540 — Applied Machine Learning</span>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-coral"></div><span class="card-name">ML Specialization — Andrew Ng</span><span class="badge pill-coral">Pre-ANA 540</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/specializations/machine-learning-introduction" target="_blank">Machine Learning Specialization</a> — DeepLearning.AI / Stanford</strong>3 courses covering supervised, unsupervised, RL. Study the math behind gradient descent, regularization, and decision boundaries — not just the sklearn API. Start this 4–6 weeks before ANA 540.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">Gradient descent</span><span class="tag">Regularization</span><span class="tag">Logistic regression</span><span class="tag">Trees / forests</span><span class="tag">K-means</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-blue"></div><span class="card-name">scikit-learn Engineering</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-book">Book</span><div class="rt"><strong>Hands-On Machine Learning with Scikit-Learn, Keras &amp; TF</strong> — Aurélien Géron. Primary ML textbook for ANA 540 + 640. Pipeline, ColumnTransformer, evaluation, deployment — covers everything the McDaniel courses expect.</div></li>
+            <li><span class="pt pt-free">Free</span><div class="rt"><strong><a href="https://scikit-learn.org/stable/user_guide.html" target="_blank">scikit-learn User Guide</a></strong>Study Pipeline and ColumnTransformer sections deeply before ANA 540 begins.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">Pipeline</span><span class="tag">ColumnTransformer</span><span class="tag">GridSearchCV</span><span class="tag">Cross-validation</span><span class="tag">Feature engineering</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-green"></div><span class="card-name">Data Science Tools</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/specializations/data-science-python" target="_blank">Applied Data Science with Python</a> — U Michigan</strong>Pandas, matplotlib, seaborn, text mining, social network analysis — 5-course specialization that covers the EDA and visualization expected in ANA 500 + 540.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">Pandas</span><span class="tag">Seaborn</span><span class="tag">EDA</span><span class="tag">Text mining</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-label">
+      <div class="tl-num">PHASE 3</div>
+      <div class="tl-title">ML Engineering &amp; MLOps</div>
+      <div class="tl-time">Concurrent: ANA 640, ANA 620</div>
+    </div>
+    <div class="tl-body">
+      <div class="par-row">
+        <span class="par-tag"><span class="par-dot" style="background:var(--green)"></span>ANA 640 — Machine Learning 2</span>
+        <span class="par-tag"><span class="par-dot" style="background:var(--purple)"></span>ANA 620 — AI &amp; Ethics</span>
+      </div>
+      <div class="note teal"><strong>Differentiator:</strong> Most data science graduates stop at notebooks. MLOps means deploying, versioning, monitoring, and serving models in production. Your Java/Spring engineering background makes this natural — REST APIs are REST APIs whether they serve HTML or predictions.</div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-green"></div><span class="card-name">MLOps Specialization</span><span class="badge pill-green">Key differentiator</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops" target="_blank">MLOps Specialization</a> — DeepLearning.AI</strong>4 courses: deployment pipelines, data lifecycle, model monitoring, experiment tracking. Bridges your software engineering background directly into production ML. Take concurrent with ANA 640.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">ML pipelines</span><span class="tag">Model versioning</span><span class="tag">Data validation</span><span class="tag">Model monitoring</span><span class="tag">Drift detection</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-teal"></div><span class="card-name">FastAPI + Model Serving</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-udemy">Udemy</span><div class="rt"><strong><a href="https://www.udemy.com/course/fastapi-the-complete-course/" target="_blank">FastAPI — The Complete Course</a></strong>REST inference APIs, request validation, async endpoints, dependency injection. Your Java REST experience makes this easy — complete in ~1 week.</div></li>
+            <li><span class="pt pt-free">Free</span><div class="rt"><strong><a href="https://mlflow.org/docs/latest/index.html" target="_blank">MLflow documentation</a></strong>Experiment tracking, model registry, serving — use alongside MLOps specialization to build practical tracking into every project.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">FastAPI</span><span class="tag">MLflow</span><span class="tag">Model serialization</span><span class="tag">Batch inference</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-amber"></div><span class="card-name">XGBoost, LightGBM &amp; Ensembles</span><span class="badge pill-amber">ANA 640 companion</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-yt">YouTube</span><div class="rt"><strong>StatQuest — Gradient Boost + XGBoost series</strong>Watch before ANA 640 covers boosting. Josh Starmer's visual explanations are better than any textbook for building intuition about ensemble methods.</div></li>
+            <li><span class="pt pt-free">Free</span><div class="rt"><strong><a href="https://xgboost.readthedocs.io" target="_blank">XGBoost &amp; SHAP documentation</a></strong>Hyperparameter tuning, early stopping, feature importance, SHAP values for interpretability — ANA 640 covers all of these.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">XGBoost</span><span class="tag">LightGBM</span><span class="tag">SHAP</span><span class="tag">Calibration</span><span class="tag">Stratified K-Fold</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-label">
+      <div class="tl-num">PHASE 4</div>
+      <div class="tl-title">Deep Learning</div>
+      <div class="tl-time">Concurrent: ANA 600</div>
+    </div>
+    <div class="tl-body">
+      <div class="par-row">
+        <span class="par-tag"><span class="par-dot" style="background:var(--coral)"></span>ANA 600 — Deep Learning</span>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-coral"></div><span class="card-name">Deep Learning Specialization</span><span class="badge pill-coral">Pre-ANA 600</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/specializations/deep-learning" target="_blank">Deep Learning Specialization</a> — DeepLearning.AI (5 courses)</strong>Neural network math, CNNs, sequence models, transformers. Study courses 1–3 before ANA 600 starts. Focus on backpropagation, weight initialization, and optimization — not just the Keras API.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">Backpropagation</span><span class="tag">CNNs</span><span class="tag">LSTMs / GRUs</span><span class="tag">Batch norm</span><span class="tag">Transfer learning</span><span class="tag">Transformers</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-blue"></div><span class="card-name">Practical Deep Learning</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-free">Free</span><div class="rt"><strong><a href="https://course.fast.ai" target="_blank">fast.ai — Practical Deep Learning for Coders</a></strong>Jeremy Howard's top-down approach complements Ng's bottom-up theory. Especially strong on transfer learning, data augmentation, and debugging training runs.</div></li>
+            <li><span class="pt pt-yt">YouTube</span><div class="rt"><strong><a href="https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ" target="_blank">Neural Networks: Zero to Hero</a> — Andrej Karpathy</strong>Build a transformer from scratch in Python. The most effective way to understand attention mechanisms deeply — strongly recommended alongside ANA 600.</div></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-purple"></div><span class="card-name">NLP &amp; Transformers</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/specializations/natural-language-processing" target="_blank">NLP Specialization</a> — DeepLearning.AI</strong>Attention mechanisms, BERT, sequence-to-sequence — connects to ANA 600's text classification section.</div></li>
+            <li><span class="pt pt-free">Free</span><div class="rt"><strong><a href="https://huggingface.co/learn/nlp-course" target="_blank">Hugging Face NLP Course</a></strong>Transformers library, fine-tuning BERT/GPT, tokenization — industry standard tooling for ANA 600 and beyond.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">Attention</span><span class="tag">BERT</span><span class="tag">Fine-tuning</span><span class="tag">Tokenization</span><span class="tag">Hugging Face</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-label">
+      <div class="tl-num">PHASE 5</div>
+      <div class="tl-title">Modern AI Engineering</div>
+      <div class="tl-time">Concurrent: ANA 555 Capstone</div>
+    </div>
+    <div class="tl-body">
+      <div class="par-row">
+        <span class="par-tag"><span class="par-dot" style="background:var(--amber)"></span>ANA 555 — Capstone Project</span>
+      </div>
+      <div class="note"><strong>Timing:</strong> Only enter this phase after solid foundations from Phases 1–4. LLM APIs are commoditized — what's valuable is system-building, not prompt tinkering.</div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-amber"></div><span class="card-name">LLM &amp; RAG Systems</span><span class="badge pill-amber">Capstone ready</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/specializations/generative-ai-engineering-with-llms" target="_blank">Generative AI Engineering with LLMs</a> — IBM</strong>Prompt engineering, RAG architecture, LangChain, LlamaIndex, fine-tuning — production-grade LLM applications.</div></li>
+            <li><span class="pt pt-coursera">Coursera</span><div class="rt"><strong><a href="https://www.coursera.org/learn/building-applications-vector-databases" target="_blank">Building Apps with Vector Databases</a> — DeepLearning.AI</strong>Embeddings, similarity search, Pinecone, RAG pipelines — the infrastructure behind modern AI systems.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">Embeddings</span><span class="tag">Vector DBs</span><span class="tag">RAG</span><span class="tag">LangChain</span><span class="tag">Agents</span></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-green"></div><span class="card-name">Capstone Project Ideas</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-free">Idea 1</span><div class="rt"><strong>Engineering Document RAG System</strong>Structural/civil engineering drawings → vector DB → Q&amp;A. Your civil engineering domain expertise makes this credible and differentiated.</div></li>
+            <li><span class="pt pt-free">Idea 2</span><div class="rt"><strong>Structural Health Monitoring ML Pipeline</strong>Sensor time-series → anomaly detection → alert system → FastAPI + Docker. Combines DSP track (Track B), your civil background, and MLOps.</div></li>
+            <li><span class="pt pt-free">Idea 3</span><div class="rt"><strong>FEM Surrogate Model</strong>Train an ML model to predict structural analysis results faster than full FEM simulation. High impact, highly differentiated, publishable.</div></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="dot dot-teal"></div><span class="card-name">AWS ML Specialty (optional)</span></div>
+          <ul class="rl">
+            <li><span class="pt pt-udemy">Udemy</span><div class="rt"><strong><a href="https://www.udemy.com/course/aws-machine-learning/" target="_blank">AWS Certified ML Specialty</a> — Stéphane Maarek</strong>SageMaker, ML data engineering on AWS, AI services (Rekognition, Comprehend, Bedrock) — take after AWS SAA and Phase 4.</div></li>
+          </ul>
+          <div class="tags"><span class="tag">SageMaker</span><span class="tag">Bedrock</span><span class="tag">Data pipelines on AWS</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- end p-ai -->
+
+</div><!-- end main -->
+
+<script>
+function sw(id){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('p-'+id).classList.add('on');
+  event.currentTarget.classList.add('on');
+}
+</script>
+</body>
+</html>

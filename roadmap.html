@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammed's Engineering Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0f11;
+    --bg2: #161619;
+    --bg3: #1e1e23;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text: #e8e6e0;
+    --muted: #7a7870;
+    --muted2: #9b9890;
+
+    --blue: #4a8fe8;
+    --blue-bg: rgba(74,143,232,0.12);
+    --blue-border: rgba(74,143,232,0.3);
+
+    --teal: #2ec4a0;
+    --teal-bg: rgba(46,196,160,0.1);
+    --teal-border: rgba(46,196,160,0.28);
+
+    --amber: #e8a34a;
+    --amber-bg: rgba(232,163,74,0.1);
+    --amber-border: rgba(232,163,74,0.28);
+
+    --coral: #e86060;
+    --coral-bg: rgba(232,96,96,0.1);
+    --coral-border: rgba(232,96,96,0.28);
+
+    --purple: #9b7fe8;
+    --purple-bg: rgba(155,127,232,0.1);
+    --purple-border: rgba(155,127,232,0.28);
+
+    --green: #5fc26a;
+    --green-bg: rgba(95,194,106,0.1);
+    --green-border: rgba(95,194,106,0.28);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── Header ── */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 2rem 0;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .header-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .header h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .header p {
+    font-size: 0.875rem;
+    color: var(--muted2);
+    margin-top: 0.3rem;
+  }
+  .badge-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .badge {
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 0.28rem 0.65rem;
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+  }
+  .badge-blue   { background: var(--blue-bg);   color: var(--blue);   border: 1px solid var(--blue-border); }
+  .badge-teal   { background: var(--teal-bg);   color: var(--teal);   border: 1px solid var(--teal-border); }
+  .badge-amber  { background: var(--amber-bg);  color: var(--amber);  border: 1px solid var(--amber-border); }
+  .badge-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); }
+  .badge-coral  { background: var(--coral-bg);  color: var(--coral);  border: 1px solid var(--coral-border); }
+  .badge-green  { background: var(--green-bg);  color: var(--green);  border: 1px solid var(--green-border); }
+
+  /* ── Tabs ── */
+  .tab-bar {
+    display: flex;
+    gap: 0;
+    margin-top: 1.5rem;
+  }
+  .tab-btn {
+    padding: 0.7rem 1.4rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--text); border-bottom-color: var(--text); }
+  .tab-icon { font-size: 1rem; }
+
+  /* ── Main Content ── */
+  .main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── Timeline Layout ── */
+  .timeline {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 0;
+  }
+
+  /* ── Phase Labels (left column) ── */
+  .phase-label {
+    padding: 1.5rem 1.5rem 1.5rem 0;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .phase-label::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: 2rem;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--bg3);
+    border: 1.5px solid var(--border2);
+  }
+  .phase-label.active-phase::after {
+    background: var(--teal);
+    border-color: var(--teal);
+    box-shadow: 0 0 8px rgba(46,196,160,0.4);
+  }
+  .phase-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+  }
+  .phase-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 0.4rem;
+  }
+  .phase-time {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  /* ── Phase Content (right column) ── */
+  .phase-content {
+    padding: 1.5rem 0 1.5rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .phase-label { border-bottom: 1px solid var(--border); }
+
+  /* ── Track Cards ── */
+  .tracks {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0.875rem;
+  }
+  .track {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    transition: border-color 0.15s;
+  }
+  .track:hover { border-color: var(--border2); }
+  .track-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .track-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .track-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--text);
+  }
+  .track-priority {
+    font-size: 0.68rem;
+    font-weight: 500;
+    padding: 0.15rem 0.45rem;
+    border-radius: 10px;
+    margin-left: auto;
+  }
+
+  /* ── Resource List ── */
+  .resources { list-style: none; }
+  .resources li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.82rem;
+  }
+  .resources li:last-child { border-bottom: none; padding-bottom: 0; }
+  .resources li:first-child { padding-top: 0; }
+  .res-platform {
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+    letter-spacing: 0.02em;
+  }
+  .plat-coursera  { background: rgba(0,86,210,0.2);  color: #60a5fa; border: 1px solid rgba(0,86,210,0.3); }
+  .plat-udemy     { background: rgba(167,105,0,0.2);  color: #fbbf24; border: 1px solid rgba(167,105,0,0.3); }
+  .plat-youtube   { background: rgba(180,0,0,0.2);    color: #f87171; border: 1px solid rgba(180,0,0,0.3); }
+  .plat-pluralsight { background: rgba(240,100,10,0.15); color: #fb923c; border: 1px solid rgba(240,100,10,0.25); }
+  .plat-free      { background: rgba(46,196,160,0.15); color: var(--teal); border: 1px solid var(--teal-border); }
+  .plat-book      { background: rgba(155,127,232,0.15); color: var(--purple); border: 1px solid var(--purple-border); }
+
+  .res-text {
+    color: var(--muted2);
+    line-height: 1.4;
+    flex: 1;
+  }
+  .res-text strong {
+    color: var(--text);
+    font-weight: 500;
+    display: block;
+  }
+  .res-text a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.1s, color 0.1s;
+  }
+  .res-text a:hover {
+    color: var(--text);
+    border-bottom-color: var(--border2);
+  }
+
+  /* ── Note / Callout ── */
+  .note {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    border-radius: 0 8px 8px 0;
+    padding: 0.75rem 1rem;
+    font-size: 0.82rem;
+    color: var(--muted2);
+    margin-bottom: 1rem;
+  }
+  .note strong { color: var(--amber); font-weight: 500; }
+
+  .mcdaniel-note {
+    border-left-color: var(--teal);
+  }
+  .mcdaniel-note strong { color: var(--teal); }
+
+  /* ── Parallel badge ── */
+  .parallel-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.875rem;
+  }
+  .parallel-tag {
+    font-size: 0.74rem;
+    font-weight: 500;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--muted2);
+  }
+  .parallel-tag .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+  }
+
+  /* ── Weekly structure box ── */
+  .weekly {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.875rem;
+  }
+  .week-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.875rem 1rem;
+  }
+  .week-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .week-label {
+    font-size: 0.78rem;
+    color: var(--muted2);
+    line-height: 1.3;
+  }
+
+  /* ── Colors ── */
+  .c-blue   { color: var(--blue); }
+  .c-teal   { color: var(--teal); }
+  .c-amber  { color: var(--amber); }
+  .c-coral  { color: var(--coral); }
+  .c-purple { color: var(--purple); }
+  .c-green  { color: var(--green); }
+  .c-muted  { color: var(--muted); }
+
+  .dot-blue   { background: var(--blue); }
+  .dot-teal   { background: var(--teal); }
+  .dot-amber  { background: var(--amber); }
+  .dot-coral  { background: var(--coral); }
+  .dot-purple { background: var(--purple); }
+  .dot-green  { background: var(--green); }
+
+  /* ── Section header (non-phase) ── */
+  .section-h {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-h::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Outcome pills ── */
+  .outcomes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+  }
+  .outcome {
+    font-size: 0.73rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 20px;
+    background: var(--bg3);
+    color: var(--muted2);
+    border: 1px solid var(--border);
+  }
+
+  /* ── Continuous track band ── */
+  .continuous-band {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .cb-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--muted2);
+    padding-top: 0.1rem;
+  }
+  .cb-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    flex: 1;
+  }
+  .cb-item {
+    font-size: 0.78rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+
+  @media (max-width: 640px) {
+    .timeline { grid-template-columns: 1fr; }
+    .phase-label {
+      border-right: none;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .phase-label::after { display: none; }
+    .phase-content { padding-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <h1>Mohammed — Engineering Career Roadmap</h1>
+      <p>Java Full-Stack Engineer → Senior Software + AI/ML Engineer &nbsp;·&nbsp; 2025–2028</p>
+    </div>
+    <div class="badge-row">
+      <span class="badge badge-teal">McDaniel MDA (AI Track)</span>
+      <span class="badge badge-blue">Java Backend</span>
+      <span class="badge badge-amber">AWS Target</span>
+      <span class="badge badge-purple">AI/ML Engineering</span>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('se')">
+      <span class="tab-icon">⚙</span> Software Engineering
+    </button>
+    <button class="tab-btn" onclick="switchTab('ai')">
+      <span class="tab-icon">⬡</span> AI / ML Engineering
+    </button>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- TAB 1 — SOFTWARE ENGINEERING                             -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="tab-panel active" id="panel-se">
+
+  <div class="note">
+    <strong>Strategy:</strong> Do not pause job applications while studying. You are employable right now as a Java backend / full-stack engineer. This roadmap runs in parallel with McDaniel — not after it.
+  </div>
+
+  <div class="continuous-band">
+    <span class="cb-label">Run throughout →</span>
+    <div class="cb-items">
+      <span class="cb-item badge-blue badge" style="background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)">DSA — Princeton Algorithms I &amp; II (Coursera)</span>
+      <span class="cb-item badge-teal badge" style="background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-border)">LeetCode — 3–4 problems/week</span>
+      <span class="cb-item badge-amber badge" style="background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)">Job applications — continuous</span>
+    </div>
+  </div>
+
+  <div class="timeline">
+
+    <!-- PHASE 0 -->
+    <div class="phase-label active-phase">
+      <div class="phase-num">PHASE 0</div>
+      <div class="phase-title">Job-Ready Polish</div>
+      <div class="phase-time">Now → Month 2</div>
+    </div>
+    <div class="phase-content">
+      <div class="note mcdaniel-note" style="margin-bottom:0.875rem">
+        <strong>Goal:</strong> Get interviews fast. Polish what you already know and start applying aggressively.
+      </div>
+      <div class="tracks">
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-coral"></div>
+            <span class="track-name">Spring Boot Deep Dive</span>
+            <span class="track-priority badge badge-coral">Highest</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-udemy">Udemy</span>
+              <div class="res-text">
+                <strong><a href="https://www.udemy.com/course/spring-hibernate-tutorial/" target="_blank">Spring &amp; Hibernate for Beginners</a></strong>
+                Chad Darby — most comprehensive Spring course; covers Boot, MVC, Security, JPA
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-free">Free</span>
+              <div class="res-text">
+                <strong><a href="https://www.baeldung.com" target="_blank">Baeldung</a></strong>
+                Use as reference alongside the course; covers every Spring topic in depth
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">Spring MVC</span>
+            <span class="outcome">Spring Data JPA</span>
+            <span class="outcome">Spring Security</span>
+            <span class="outcome">Transactions</span>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-blue"></div>
+            <span class="track-name">PostgreSQL &amp; SQL</span>
+            <span class="track-priority badge badge-blue">High</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-free">Free</span>
+              <div class="res-text">
+                <strong><a href="https://use-the-index-luke.com" target="_blank">Use The Index, Luke</a></strong>
+                Best resource on indexing, query planning, and performance — essential for senior backend roles
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/learn/sql-for-data-science" target="_blank">SQL for Data Science</a> — UC Davis</strong>
+                Good refresher; covers window functions, aggregation, subqueries
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">Indexing</span>
+            <span class="outcome">Query optimization</span>
+            <span class="outcome">Transactions</span>
+            <span class="outcome">Isolation levels</span>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-teal"></div>
+            <span class="track-name">DSA — Interview Core</span>
+            <span class="track-priority badge badge-teal">High</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/learn/algorithms-part1" target="_blank">Algorithms, Part I</a> — Princeton (Sedgewick)</strong>
+                Arrays, sorting, trees, hash maps, graphs — run throughout entire roadmap
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/learn/algorithms-part2" target="_blank">Algorithms, Part II</a> — Princeton</strong>
+                Graphs, string processing, dynamic programming
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 1 -->
+    <div class="phase-label">
+      <div class="phase-num">PHASE 1</div>
+      <div class="phase-title">Full-Stack Java + REST</div>
+      <div class="phase-time">Month 1–4</div>
+    </div>
+    <div class="phase-content">
+      <div class="tracks">
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-blue"></div>
+            <span class="track-name">REST API Design</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-pluralsight">Pluralsight</span>
+              <div class="res-text">
+                <strong>REST API Design in Java</strong>
+                REST conventions, versioning, HATEOAS, OpenAPI/Swagger
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-free">Free</span>
+              <div class="res-text">
+                <strong><a href="https://restfulapi.net" target="_blank">RESTful API Design Guidelines</a></strong>
+                Best-practice reference for designing production REST APIs
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">JWT / OAuth2</span>
+            <span class="outcome">Exception handling</span>
+            <span class="outcome">Validation</span>
+            <span class="outcome">OpenAPI docs</span>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-amber"></div>
+            <span class="track-name">React + TypeScript</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/professional-certificates/meta-front-end-developer" target="_blank">Meta Front-End Developer Certificate</a></strong>
+                HTML/CSS → React → TypeScript — good for LinkedIn; you can skip early modules
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-udemy">Udemy</span>
+              <div class="res-text">
+                <strong><a href="https://www.udemy.com/course/react-the-complete-guide-incl-redux/" target="_blank">React — The Complete Guide</a> (Schwarzmüller)</strong>
+                More thorough than Meta cert; hooks, context, React Query, Redux
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">React Hooks</span>
+            <span class="outcome">REST integration</span>
+            <span class="outcome">Admin dashboards</span>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-purple"></div>
+            <span class="track-name">Computer Architecture &amp; OS</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-free">Free</span>
+              <div class="res-text">
+                <strong><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank">OSTEP — Operating Systems: Three Easy Pieces</a></strong>
+                Processes, threads, virtual memory, concurrency — free, exceptional quality
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-youtube">YouTube</span>
+              <div class="res-text">
+                <strong>CS50 lectures (Harvard) — weeks 4–6</strong>
+                Memory, pointers, data structures — helps you reason about JVM internals
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase-label">
+      <div class="phase-num">PHASE 2</div>
+      <div class="phase-title">Docker, Linux &amp; DevOps</div>
+      <div class="phase-time">Month 3–7</div>
+    </div>
+    <div class="phase-content">
+      <div class="tracks">
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-teal"></div>
+            <span class="track-name">Linux &amp; Shell</span>
+            <span class="track-priority badge badge-teal">High</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/learn/linux-and-bash-for-data-engineering" target="_blank">Linux and Bash for Data Engineering</a> — Duke</strong>
+                Shell scripting, file systems, processes, permissions — practical and deployable
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-free">Free</span>
+              <div class="res-text">
+                <strong><a href="https://linuxcommand.org/tlcl.php" target="_blank">The Linux Command Line</a> (Shotts)</strong>
+                Free book — comprehensive reference; read alongside practice
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-blue"></div>
+            <span class="track-name">Docker &amp; Containers</span>
+            <span class="track-priority badge badge-blue">High</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/learn/docker-for-java-developers" target="_blank">Docker for Java Developers</a> — Duke</strong>
+                Containerizing Spring Boot apps; Docker Compose; multi-stage builds
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-udemy">Udemy</span>
+              <div class="res-text">
+                <strong><a href="https://www.udemy.com/course/docker-mastery/" target="_blank">Docker Mastery</a> (Bret Fisher)</strong>
+                Best hands-on Docker course; networking, volumes, Compose, Swarm basics
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">Dockerfile</span>
+            <span class="outcome">Compose</span>
+            <span class="outcome">Networking</span>
+            <span class="outcome">Multi-stage builds</span>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-amber"></div>
+            <span class="track-name">CI/CD — GitHub Actions</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/learn/devops-fundamentals" target="_blank">Introduction to DevOps</a> — IBM</strong>
+                CI/CD concepts, GitHub Actions, pipelines — good LinkedIn certificate
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-free">Free</span>
+              <div class="res-text">
+                <strong><a href="https://docs.github.com/en/actions" target="_blank">GitHub Actions official docs</a></strong>
+                Best hands-on reference; build your own pipeline for a Spring Boot app
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-purple"></div>
+            <span class="track-name">Networking Fundamentals</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-free">Free</span>
+              <div class="res-text">
+                <strong><a href="https://gaia.cs.umass.edu/kurose_ross/online_lectures.htm" target="_blank">Computer Networking: Top-Down Approach</a> (Kurose &amp; Ross)</strong>
+                TCP/IP, DNS, HTTP, TLS, load balancers, reverse proxies — foundational for cloud
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-youtube">YouTube</span>
+              <div class="res-text">
+                <strong>Hussein Nasser — "Networking for Backend Engineers"</strong>
+                Practical networking concepts: proxies, gateways, load balancing
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase-label">
+      <div class="phase-num">PHASE 3</div>
+      <div class="phase-title">AWS Certification Path</div>
+      <div class="phase-time">Month 6–10</div>
+    </div>
+    <div class="phase-content">
+      <div class="note">
+        <strong>Order matters:</strong> Cloud Practitioner first (1–2 weeks), then Solutions Architect Associate (2 months). Do not skip to SAA — the Practitioner grounds your mental model.
+      </div>
+      <div class="tracks">
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-amber"></div>
+            <span class="track-name">AWS Cloud Practitioner</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/learn/aws-cloud-practitioner-essentials" target="_blank">AWS Cloud Practitioner Essentials</a> — AWS Training</strong>
+                Official AWS course; 1–2 weeks; good LinkedIn badge
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-udemy">Udemy</span>
+              <div class="res-text">
+                <strong><a href="https://www.udemy.com/course/aws-certified-cloud-practitioner-new/" target="_blank">AWS CCP by Stéphane Maarek</a></strong>
+                Most popular exam prep; clear explanations + practice tests
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-coral"></div>
+            <span class="track-name">AWS Solutions Architect Associate</span>
+            <span class="track-priority badge badge-coral">Priority cert</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-udemy">Udemy</span>
+              <div class="res-text">
+                <strong><a href="https://www.udemy.com/course/aws-certified-solutions-architect-associate-saa-c03/" target="_blank">SAA-C03 by Stéphane Maarek</a></strong>
+                Industry standard for this cert; covers EC2, VPC, RDS, S3, IAM, Lambda deeply
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/learn/aws-fundamentals-going-cloud-native" target="_blank">AWS Fundamentals Specialization</a></strong>
+                4-course series from AWS; good complement to Maarek for SAA
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">EC2 / VPC</span>
+            <span class="outcome">S3 / RDS</span>
+            <span class="outcome">IAM / Security</span>
+            <span class="outcome">Lambda / ECS</span>
+            <span class="outcome">Load balancers</span>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-green"></div>
+            <span class="track-name">Kubernetes Basics</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/learn/ibm-containers-docker-kubernetes-openshift" target="_blank">Containers, Kubernetes &amp; OpenShift</a> — IBM</strong>
+                Practical intro to K8s; pairs well with Docker knowledge
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 4 -->
+    <div class="phase-label">
+      <div class="phase-num">PHASE 4</div>
+      <div class="phase-title">System Design &amp; Distributed Systems</div>
+      <div class="phase-time">Month 8–14</div>
+    </div>
+    <div class="phase-content">
+      <div class="note">
+        <strong>Why this phase matters:</strong> System design interviews are the main barrier between mid-level and senior engineering roles. Start early, reason about it continuously.
+      </div>
+      <div class="tracks">
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-blue"></div>
+            <span class="track-name">System Design</span>
+            <span class="track-priority badge badge-blue">Senior gate</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-udemy">Udemy</span>
+              <div class="res-text">
+                <strong><a href="https://www.udemy.com/course/system-design-a-comprehensive-guide/" target="_blank">Mastering the System Design Interview</a></strong>
+                Covers URL shorteners, rate limiting, messaging systems, distributed caches
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-free">Free</span>
+              <div class="res-text">
+                <strong><a href="https://github.com/donnemartin/system-design-primer" target="_blank">System Design Primer</a> (GitHub)</strong>
+                Free, comprehensive; covers CAP theorem, caching, databases, microservices
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-book">Book</span>
+              <div class="res-text">
+                <strong>Designing Data-Intensive Applications</strong> (Kleppmann)
+                The definitive book on distributed systems; replication, partitioning, consistency
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">Caching layers</span>
+            <span class="outcome">Message queues</span>
+            <span class="outcome">Eventual consistency</span>
+            <span class="outcome">Rate limiting</span>
+            <span class="outcome">Idempotency</span>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-teal"></div>
+            <span class="track-name">Microservices &amp; Kafka</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-udemy">Udemy</span>
+              <div class="res-text">
+                <strong><a href="https://www.udemy.com/course/microservices-with-spring-boot-and-spring-cloud/" target="_blank">Microservices with Spring Boot &amp; Spring Cloud</a></strong>
+                Service discovery, API gateway, circuit breakers, distributed tracing
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/learn/kafka-cluster-setup" target="_blank">Apache Kafka for Beginners</a> — Confluent</strong>
+                Producers, consumers, topics, partitions — essential for distributed systems
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-amber"></div>
+            <span class="track-name">Security Engineering</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-free">Free</span>
+              <div class="res-text">
+                <strong><a href="https://owasp.org/www-project-top-ten/" target="_blank">OWASP Top 10</a></strong>
+                Know every item deeply — SQL injection, XSS, broken auth, SSRF, etc.
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/learn/application-security-for-developers-devops" target="_blank">Application Security for Developers</a> — IBM</strong>
+                SAST, DAST, secrets management, container security
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">JWT / OAuth2</span>
+            <span class="outcome">OWASP Top 10</span>
+            <span class="outcome">Spring Security</span>
+            <span class="outcome">TLS/HTTPS</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- WEEKLY STRUCTURE -->
+    <div class="phase-label">
+      <div class="phase-num">WEEKLY</div>
+      <div class="phase-title">Time Allocation</div>
+      <div class="phase-time">Ongoing</div>
+    </div>
+    <div class="phase-content" style="border-bottom:none">
+      <div class="section-h">Suggested weekly split while at McDaniel</div>
+      <div class="weekly">
+        <div class="week-item">
+          <div class="week-pct c-coral">40–50%</div>
+          <div class="week-label">Job applications + mock interviews + LeetCode</div>
+        </div>
+        <div class="week-item">
+          <div class="week-pct c-blue">25–30%</div>
+          <div class="week-label">McDaniel coursework</div>
+        </div>
+        <div class="week-item">
+          <div class="week-pct c-teal">15–20%</div>
+          <div class="week-label">Spring Boot depth + side project</div>
+        </div>
+        <div class="week-item">
+          <div class="week-pct c-amber">10–15%</div>
+          <div class="week-label">Cloud / DevOps (Docker → AWS)</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end timeline -->
+</div><!-- end panel-se -->
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- TAB 2 — AI / ML ENGINEERING                             -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-ai">
+
+  <div class="note mcdaniel-note">
+    <strong>Alignment principle:</strong> Each phase below is synchronized with your McDaniel curriculum. Study external material <em>before or alongside</em> the corresponding McDaniel course — not after — so classroom content reinforces what you already understand.
+  </div>
+
+  <div class="continuous-band">
+    <span class="cb-label">Run throughout →</span>
+    <div class="cb-items">
+      <span class="cb-item badge-purple badge" style="background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border)">StatQuest (YouTube) — stats &amp; ML intuition</span>
+      <span class="cb-item badge-blue badge" style="background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)">3Blue1Brown — math &amp; neural networks</span>
+      <span class="cb-item badge-teal badge" style="background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-border)">Build 1 project per phase</span>
+    </div>
+  </div>
+
+  <div class="timeline">
+
+    <!-- PHASE 0 -->
+    <div class="phase-label active-phase">
+      <div class="phase-num">PHASE 0</div>
+      <div class="phase-title">Python for Engineers</div>
+      <div class="phase-time">Before Semester 1</div>
+    </div>
+    <div class="phase-content">
+      <div class="parallel-row">
+        <span class="parallel-tag"><span class="dot" style="background:var(--teal)"></span>Goal: waive ANA 522 — replace with advanced elective</span>
+      </div>
+      <div class="note">
+        <strong>Important:</strong> Given your Java/.NET background, skip beginner Python courses entirely. You need engineering-grade Python, not syntax tutorials.
+      </div>
+      <div class="tracks">
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-coral"></div>
+            <span class="track-name">Python 3 Deep Dive</span>
+            <span class="track-priority badge badge-coral">Primary</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-udemy">Udemy</span>
+              <div class="res-text">
+                <strong><a href="https://www.udemy.com/course/python-3-deep-dive-part-1/" target="_blank">Python 3 Deep Dive (Parts 1–4)</a> — Fred Baptiste</strong>
+                The best Python course for engineers. Covers closures, decorators, generators, typing, OOP, metaprogramming. Treat as a primary textbook.
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">Generators / iterators</span>
+            <span class="outcome">Decorators</span>
+            <span class="outcome">Type hints</span>
+            <span class="outcome">Virtual envs</span>
+            <span class="outcome">OOP patterns</span>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-blue"></div>
+            <span class="track-name">Data Stack Basics</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/specializations/python-3-programming" target="_blank">Python 3 Programming Specialization</a> — U Michigan</strong>
+                Supplement only — skip if Fred Baptiste feels sufficient; good for LinkedIn
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-free">Free</span>
+              <div class="res-text">
+                <strong><a href="https://realpython.com" target="_blank">Real Python</a></strong>
+                Best Python reference site; use for Pandas, testing, packaging, async
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">NumPy</span>
+            <span class="outcome">Pandas</span>
+            <span class="outcome">Matplotlib</span>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-teal"></div>
+            <span class="track-name">Portfolio project: Python ETL</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-free">Build</span>
+              <div class="res-text">
+                <strong>Waiver evidence project</strong>
+                Build a Python CLI tool: reads CSV/JSON, cleans data, runs basic analytics, outputs a report. Shows engineering Python, not tutorial Python.
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 1 -->
+    <div class="phase-label">
+      <div class="phase-num">PHASE 1</div>
+      <div class="phase-title">Math Foundations</div>
+      <div class="phase-time">Concurrent: ANA 500, 510</div>
+    </div>
+    <div class="phase-content">
+      <div class="parallel-row">
+        <span class="parallel-tag"><span class="dot" style="background:var(--blue)"></span>Concurrent: ANA 500 Foundations</span>
+        <span class="parallel-tag"><span class="dot" style="background:var(--amber)"></span>Concurrent: ANA 510 Statistical Methods</span>
+      </div>
+      <div class="tracks">
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-purple"></div>
+            <span class="track-name">Linear Algebra</span>
+            <span class="track-priority badge badge-purple">ML foundation</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-youtube">YouTube</span>
+              <div class="res-text">
+                <strong><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab" target="_blank">Essence of Linear Algebra</a> — 3Blue1Brown</strong>
+                16 videos; builds geometric intuition for vectors, matrices, eigenvectors, transformations. Watch before anything else.
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/specializations/mathematics-machine-learning" target="_blank">Mathematics for Machine Learning</a> — Imperial College</strong>
+                Linear algebra + multivariate calculus + PCA — essential theoretical foundation for ML
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">Matrix multiplication</span>
+            <span class="outcome">Eigenvalues/vectors</span>
+            <span class="outcome">SVD</span>
+            <span class="outcome">Projections</span>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-amber"></div>
+            <span class="track-name">Probability &amp; Statistics</span>
+            <span class="track-priority badge badge-amber">ANA 510 companion</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-youtube">YouTube</span>
+              <div class="res-text">
+                <strong><a href="https://www.youtube.com/@statquest" target="_blank">StatQuest with Josh Starmer</a></strong>
+                Watch the probability, hypothesis testing, regression, and Bayes' theorem series — exceptional intuition-building
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/specializations/probabilistic-graphical-models" target="_blank">Statistics with Python Specialization</a> — U Michigan</strong>
+                Inference, confidence intervals, regression — aligns directly with ANA 510
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">Bayes theorem</span>
+            <span class="outcome">Distributions</span>
+            <span class="outcome">Hypothesis testing</span>
+            <span class="outcome">Regression</span>
+            <span class="outcome">Bias/variance</span>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-teal"></div>
+            <span class="track-name">SQL &amp; Data Engineering</span>
+            <span class="track-priority badge badge-teal">ANA 505/515</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-free">Free</span>
+              <div class="res-text">
+                <strong><a href="https://sqlbolt.com" target="_blank">SQLBolt</a></strong>
+                Fast interactive SQL course — good for refreshing / going deeper with window functions
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/specializations/learn-sql-basics-data-science" target="_blank">Learn SQL Basics for Data Science</a> — UC Davis</strong>
+                SQL → data analysis → A/B testing — covers SAS alternatives; good for ANA 505
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase-label">
+      <div class="phase-num">PHASE 2</div>
+      <div class="phase-title">Classical ML</div>
+      <div class="phase-time">Concurrent: ANA 540 ML1</div>
+    </div>
+    <div class="phase-content">
+      <div class="parallel-row">
+        <span class="parallel-tag"><span class="dot" style="background:var(--coral)"></span>Concurrent: ANA 540 Applied Machine Learning</span>
+      </div>
+      <div class="tracks">
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-coral"></div>
+            <span class="track-name">ML Specialization — Andrew Ng</span>
+            <span class="track-priority badge badge-coral">Core</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/specializations/machine-learning-introduction" target="_blank">Machine Learning Specialization</a> — DeepLearning.AI / Stanford</strong>
+                3 courses: supervised, unsupervised, reinforcement learning. Study the math behind gradient descent, regularization, and decision boundaries — not just the API calls.
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">Gradient descent</span>
+            <span class="outcome">Regularization</span>
+            <span class="outcome">Logistic regression</span>
+            <span class="outcome">Trees &amp; forests</span>
+            <span class="outcome">Cross-validation</span>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-blue"></div>
+            <span class="track-name">scikit-learn Engineering</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-book">Book</span>
+              <div class="res-text">
+                <strong>Hands-On Machine Learning with Scikit-Learn, Keras &amp; TF</strong> (Géron)
+                Treat as primary textbook for ANA 540 + 640. Covers Pipeline, ColumnTransformer, model evaluation, and deployment concepts.
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-free">Free</span>
+              <div class="res-text">
+                <strong><a href="https://scikit-learn.org/stable/user_guide.html" target="_blank">scikit-learn User Guide</a></strong>
+                Study the Pipeline and ColumnTransformer sections deeply before ANA 540 starts
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">Pipeline</span>
+            <span class="outcome">ColumnTransformer</span>
+            <span class="outcome">GridSearchCV</span>
+            <span class="outcome">Feature engineering</span>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-green"></div>
+            <span class="track-name">CS Foundations</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/specializations/cs-fundamentals" target="_blank">CS Fundamentals Specialization</a> — Duke</strong>
+                Data structures &amp; algorithms in Python — bridges your Java CS knowledge to Python tooling
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-free">Free</span>
+              <div class="res-text">
+                <strong><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank">OSTEP</a> — Chapters 1–15</strong>
+                Processes, memory, file systems — systems thinking that differentiates you from pure DS graduates
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase-label">
+      <div class="phase-num">PHASE 3</div>
+      <div class="phase-title">ML Engineering &amp; MLOps</div>
+      <div class="phase-time">Concurrent: ANA 640 ML2</div>
+    </div>
+    <div class="phase-content">
+      <div class="parallel-row">
+        <span class="parallel-tag"><span class="dot" style="background:var(--green)"></span>Concurrent: ANA 640 Machine Learning 2</span>
+        <span class="parallel-tag"><span class="dot" style="background:var(--purple)"></span>Concurrent: ANA 620 AI &amp; Ethics</span>
+      </div>
+      <div class="note">
+        <strong>This phase differentiates you:</strong> Most data science graduates stop at notebooks. ML engineering means deploying, versioning, monitoring, and serving models in production.
+      </div>
+      <div class="tracks">
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-green"></div>
+            <span class="track-name">MLOps Specialization</span>
+            <span class="track-priority badge badge-green">Differentiator</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops" target="_blank">MLOps Specialization</a> — DeepLearning.AI</strong>
+                4 courses: deployment pipelines, data &amp; model lifecycle, experiment tracking, monitoring. Directly bridges your software engineering background into ML production.
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">ML pipelines</span>
+            <span class="outcome">Model versioning</span>
+            <span class="outcome">Data validation</span>
+            <span class="outcome">Model monitoring</span>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-teal"></div>
+            <span class="track-name">FastAPI + Model Serving</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-udemy">Udemy</span>
+              <div class="res-text">
+                <strong><a href="https://www.udemy.com/course/fastapi-the-complete-course/" target="_blank">FastAPI — The Complete Course</a></strong>
+                REST inference APIs, request validation, async endpoints; your Java REST background makes this fast
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-free">Free</span>
+              <div class="res-text">
+                <strong><a href="https://mlflow.org/docs/latest/index.html" target="_blank">MLflow official docs</a></strong>
+                Experiment tracking, model registry, deployment — use alongside the MLOps specialization
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">FastAPI</span>
+            <span class="outcome">MLflow</span>
+            <span class="outcome">Model serialization</span>
+            <span class="outcome">Batch inference</span>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-amber"></div>
+            <span class="track-name">Advanced Trees &amp; Ensembles</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-free">Free</span>
+              <div class="res-text">
+                <strong><a href="https://xgboost.readthedocs.io" target="_blank">XGBoost &amp; LightGBM documentation</a></strong>
+                Read alongside ANA 640 — understand hyperparameter tuning, early stopping, SHAP values
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-youtube">YouTube</span>
+              <div class="res-text">
+                <strong>StatQuest — Gradient Boost &amp; XGBoost series</strong>
+                Best intuitive explanation of boosting algorithms; watch before ANA 640 covers them
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">XGBoost</span>
+            <span class="outcome">LightGBM</span>
+            <span class="outcome">SHAP values</span>
+            <span class="outcome">Calibration</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 4 -->
+    <div class="phase-label">
+      <div class="phase-num">PHASE 4</div>
+      <div class="phase-title">Deep Learning</div>
+      <div class="phase-time">Concurrent: ANA 600</div>
+    </div>
+    <div class="phase-content">
+      <div class="parallel-row">
+        <span class="parallel-tag"><span class="dot" style="background:var(--coral)"></span>Concurrent: ANA 600 Deep Learning</span>
+      </div>
+      <div class="tracks">
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-coral"></div>
+            <span class="track-name">Deep Learning Specialization</span>
+            <span class="track-priority badge badge-coral">Pre-ANA 600</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/specializations/deep-learning" target="_blank">Deep Learning Specialization</a> — DeepLearning.AI</strong>
+                5 courses: neural networks math, CNNs, sequence models, transformers. Study courses 1–3 before ANA 600 starts. Focus on backpropagation, initialization, and optimization — not just Keras API calls.
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">Backpropagation</span>
+            <span class="outcome">CNNs</span>
+            <span class="outcome">LSTMs / GRUs</span>
+            <span class="outcome">Batch norm</span>
+            <span class="outcome">Transfer learning</span>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-blue"></div>
+            <span class="track-name">Practical Deep Learning</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-free">Free</span>
+              <div class="res-text">
+                <strong><a href="https://course.fast.ai" target="_blank">fast.ai — Practical Deep Learning</a></strong>
+                Jeremy Howard's course; top-down practical approach that complements Ng's bottom-up theory. Especially good on transfer learning and data augmentation.
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-youtube">YouTube</span>
+              <div class="res-text">
+                <strong><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi" target="_blank">Neural Networks: Zero to Hero</a> — Andrej Karpathy</strong>
+                Build a transformer from scratch in Python — the best way to truly understand attention
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">TensorFlow/Keras</span>
+            <span class="outcome">Grad-CAM</span>
+            <span class="outcome">Learning rate scheduling</span>
+            <span class="outcome">Error analysis</span>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-purple"></div>
+            <span class="track-name">Transformer Architecture</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/specializations/natural-language-processing" target="_blank">NLP Specialization</a> — DeepLearning.AI</strong>
+                Attention mechanisms, BERT, transformers — connects directly to ANA 600's text classification section
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 5 -->
+    <div class="phase-label">
+      <div class="phase-num">PHASE 5</div>
+      <div class="phase-title">Modern AI Engineering</div>
+      <div class="phase-time">Concurrent: ANA 555 Capstone</div>
+    </div>
+    <div class="phase-content">
+      <div class="parallel-row">
+        <span class="parallel-tag"><span class="dot" style="background:var(--amber)"></span>Concurrent: ANA 555 Capstone — build your RAG / LLM project here</span>
+      </div>
+      <div class="note">
+        <strong>Timing:</strong> Only begin this phase after strong fundamentals from Phases 1–4. LLM APIs commoditized model usage — what's valuable is system-building, not prompt tinkering.
+      </div>
+      <div class="tracks">
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-amber"></div>
+            <span class="track-name">LLM &amp; RAG Systems</span>
+            <span class="track-priority badge badge-amber">Capstone ready</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/specializations/generative-ai-engineering-with-llms" target="_blank">Generative AI Engineering with LLMs</a> — IBM</strong>
+                Prompt engineering, fine-tuning, RAG architecture, LangChain, LlamaIndex
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-coursera">Coursera</span>
+              <div class="res-text">
+                <strong><a href="https://www.coursera.org/learn/building-applications-vector-databases" target="_blank">Building Applications with Vector Databases</a> — DeepLearning.AI</strong>
+                Embeddings, similarity search, Pinecone, RAG pipelines
+              </div>
+            </li>
+          </ul>
+          <div class="outcomes">
+            <span class="outcome">Embeddings</span>
+            <span class="outcome">Vector DBs</span>
+            <span class="outcome">RAG pipelines</span>
+            <span class="outcome">LangChain</span>
+            <span class="outcome">Agent patterns</span>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-teal"></div>
+            <span class="track-name">AWS ML Specialty (optional)</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-udemy">Udemy</span>
+              <div class="res-text">
+                <strong><a href="https://www.udemy.com/course/aws-machine-learning/" target="_blank">AWS Certified ML Specialty</a> — Stéphane Maarek</strong>
+                Covers SageMaker, data engineering on AWS, and AI services (Rekognition, Comprehend, Bedrock)
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="track">
+          <div class="track-header">
+            <div class="track-dot dot-green"></div>
+            <span class="track-name">Capstone Project Ideas</span>
+          </div>
+          <ul class="resources">
+            <li>
+              <span class="res-platform plat-free">Idea 1</span>
+              <div class="res-text">
+                <strong>Engineering Document RAG System</strong>
+                Civil engineering drawings / structural reports → vector DB → Q&amp;A system. Combines your civil engineering domain expertise with LLM engineering.
+              </div>
+            </li>
+            <li>
+              <span class="res-platform plat-free">Idea 2</span>
+              <div class="res-text">
+                <strong>Job Description Classifier + Resume Matcher</strong>
+                End-to-end ML pipeline: data collection → NLP → scoring → FastAPI endpoint → Docker deployment. Directly useful, deployable, and tells a clear story.
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- WEEKLY -->
+    <div class="phase-label">
+      <div class="phase-num">WEEKLY</div>
+      <div class="phase-title">Time Allocation</div>
+      <div class="phase-time">Ongoing</div>
+    </div>
+    <div class="phase-content" style="border-bottom:none">
+      <div class="section-h">Suggested weekly split while at McDaniel</div>
+      <div class="weekly">
+        <div class="week-item">
+          <div class="week-pct c-blue">40%</div>
+          <div class="week-label">McDaniel coursework + assignments</div>
+        </div>
+        <div class="week-item">
+          <div class="week-pct c-coral">25%</div>
+          <div class="week-label">Java backend interview prep + job applications</div>
+        </div>
+        <div class="week-item">
+          <div class="week-pct c-teal">20%</div>
+          <div class="week-label">Python / ML foundations (phase-aligned)</div>
+        </div>
+        <div class="week-item">
+          <div class="week-pct c-amber">10%</div>
+          <div class="week-label">Cloud / DevOps for ML deployment</div>
+        </div>
+        <div class="week-item">
+          <div class="week-pct c-purple">5%</div>
+          <div class="week-label">Math review (3Blue1Brown, StatQuest)</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end timeline -->
+</div><!-- end panel-ai -->
+
+</div><!-- end main -->
+
+<script>
+  function switchTab(id) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+</script>
+</body>
+</html>
